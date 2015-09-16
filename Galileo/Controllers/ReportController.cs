@@ -20,7 +20,7 @@ namespace Galileo.Controllers
             return View(user);
         }
 
-        public ActionResult Course()
+        public ActionResult Course(int courseId)
         {
             // This view will show all of the projects in the course with a summary of hours for each project
             ViewBag.Message = "Your application description page.";
@@ -28,7 +28,7 @@ namespace Galileo.Controllers
             return View();
         }
 
-        public ActionResult Project()
+        public ActionResult Project(int projectId)
         {
             // This view will show all the teams (or if no teams, individuals) with a summary of hours for each one
             ViewBag.Message = "Your contact page.";
@@ -36,7 +36,7 @@ namespace Galileo.Controllers
             return View();
         }
 
-        public ActionResult Team()
+        public ActionResult Team(int teamId)
         {
             // This view will show all of the team members with a summary of hours for each one
             ViewBag.Message = "Your contact page.";
@@ -44,7 +44,7 @@ namespace Galileo.Controllers
             return View();
         }
 
-        public ActionResult Individual()
+        public ActionResult Individual(string userId)
         {
             // This view will show all of the info for an individual team member
             ViewBag.Message = "Your contact page.";
