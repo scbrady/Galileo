@@ -1,0 +1,18 @@
+# .gitignore for ASP.NET MVC / Windows Azure development
+# Original file: https://gist.github.com/3318347 by @codingoutloud
+syntax: glob
+
+# Visual Studio build objects
+bin/
+csx/
+obj/
+rcf/
+.vs/
+
+# Visual Studio user-specific files
+## Useful whenever working as part of a team or on software (like open source) that others will download
+*.suo
+*.user
+
+# ReSharper
+_ReSharper*/
