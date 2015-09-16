@@ -1,0 +1,1 @@
+Drop all design, HTML or CSS in this folder
