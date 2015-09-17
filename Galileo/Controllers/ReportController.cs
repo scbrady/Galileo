@@ -12,7 +12,7 @@ namespace Galileo.Controllers
         public ActionResult Index()
         {
             // Check if this is a teacher, pm, team leader, or team member
-            // Teachers get a page telling them to select a course from the sidebar
+            // Teachers gets this page with all the courses listed with a summary of hours for each course
             // PMs get redirected to project(?) page
             // Team Leaders get redirected to their team page
             // Team members get redirected to their individual page
