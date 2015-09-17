@@ -13,7 +13,7 @@ namespace Galileo.Controllers
         {
             // Check if this is a teacher, pm, team leader, or team member
             // Teachers gets this page with all the courses listed with a summary of hours for each course
-            // PMs get redirected to project(?) page
+            // PMs get redirected to courses page that only shows them the projects they are over
             // Team Leaders get redirected to their team page
             // Team members get redirected to their individual page
             User user = GlobalVariables.CurrentUser;
