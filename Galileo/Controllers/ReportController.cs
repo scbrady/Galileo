@@ -91,7 +91,9 @@ namespace Galileo.Controllers
         /// <returns></returns>
         public ActionResult Individual(string userId)
         {
-            return View();
+            TimeMachineRepository db = new TimeMachineRepository();
+            List<Entry> entries = db.GetUserEntries(userId);
+            return View(entries);
         }
     }
 }

@@ -20,6 +20,7 @@
 @foreach (var user in Model.users)
 {
     <ul>
+        <li>@Html.ActionLink("User ID: " + user.user_id, "Individual", "Report", new { userId = user.user_id }, null)</li>
         <li>ID: @user.user_id</li>
         <li>Name: @user.user_first_name @user.user_last_name</li>
         <li>Total Hours: @user.user_total_hours</li>

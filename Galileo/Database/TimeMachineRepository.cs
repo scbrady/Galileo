@@ -100,5 +100,23 @@ SELECT user_id, user_first_name, user_last_name, SUM(entry_total_time)/60 as use
                 return users.AsList();
             }
         }
+
+        public List<Entry> GetUserEntries(string userId)
+        {
+            string sql = @"
+select e.*, u.user_first_name, u.user_last_name, p.project_name, c.course_name, sum(e.entry_total_time)/60 as entry_total_hours from [entry] e
+JOIN [PROJECT] p ON e.entry_project_id    = p.project_id
+JOIN [COURSE]  c ON p.project_course_id = c.course_id
+JOIN [user] u ON e.entry_user_id = u.user_id
+where e.entry_user_id = @userId
+group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, entry_id, entry_begin_time, entry_end_time, entry_total_time, entry_work_accomplished, entry_comment, entry_user_id, entry_project_id, entry_location_id, entry_category_id";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var entries = connection.Query<Entry>(sql, new { userId });
+                return entries.AsList();
+            }
+        }
     }
 }
