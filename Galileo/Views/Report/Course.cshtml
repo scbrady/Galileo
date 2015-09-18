@@ -1,0 +1,16 @@
+﻿@model List<Galileo.Models.Project>
+
+@{
+    ViewBag.Title = "Project Page";
+}
+
+@foreach(var project in Model)
+{
+    <ul>
+        <li>ID: @project.project_id</li>
+        <li>Name: @project.project_name</li>
+        <li>Date Created: @project.project_date_created</li>
+        <li>Total Hours: @project.project_total_hours</li>
+    </ul>
+    <br />
+}
