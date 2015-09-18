@@ -1,5 +1,6 @@
 ﻿using Galileo.Database;
 using Galileo.Models;
+using Galileo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Galileo.Controllers
         }
 
         /// <summary>
-        /// Lists all of the projects and teams inside a course
+        /// Lists all of the projects, teams, and users inside a course
         /// Gives a summary of the hours spent in each project/team
         /// </summary>
         /// <param name="courseId">The ID of the course that the projects are in</param>
@@ -48,18 +49,14 @@ namespace Galileo.Controllers
         {
             TimeMachineRepository db = new TimeMachineRepository();
             List<Project> projects = db.GetProjects(courseId);
-            return View(projects);
-        }
+            List<User> members = db.GetUsersInCourse(courseId);
 
-        /// <summary>
-        /// Lists all of the students that have logged time for a particular course
-        /// Gives a summary of all of the hours the students have logged for that course
-        /// </summary>
-        /// <param name="courseId">The ID of the course to get the individuals for</param>
-        /// <returns></returns>
-        public ActionResult Course(int courseId)
-        {
-            return View();
+            var viewModel = new CourseProjectsAndUsers()
+            {
+                projects = projects,
+                users = members
+            };
+            return View(viewModel);
         }
 
         /// <summary>
@@ -70,7 +67,9 @@ namespace Galileo.Controllers
         /// <returns></returns>
         public ActionResult Project(int projectId)
         {
-            return View();
+            TimeMachineRepository db = new TimeMachineRepository();
+            List<User> members = db.GetUsersInProject(projectId);
+            return View(members);
         }
 
         /// <summary>
