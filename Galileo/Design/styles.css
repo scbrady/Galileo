@@ -1,0 +1,32 @@
+*  {
+	margin: 0;
+}
+body {
+}
+nav {
+	position:fixed;
+	top: 0; left: 0;
+	height:100%; 
+	width:15%;
+	background-color:gray;
+}
+nav  ul {
+    list-style:none;
+    margin:0; padding:0;
+    
+    li {
+      margin-bottom:25px;
+    }
+  }
+#container {
+	width:85%;
+	height:100%;
+	position:relative;
+	float:right;
+	background-color: red;
+}
+#top_bar {
+	width: 100%;
+	height: 50px;
+	background-color: blue;
+}
