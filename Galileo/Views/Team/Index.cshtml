@@ -1,0 +1,16 @@
+﻿@model List<Galileo.Models.Course>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@foreach(var course in Model)
+{
+    <ul>
+        <li>@Html.ActionLink("Course ID: " + course.course_id, "Teams", "Team", new { courseId = course.course_id }, null)</li>
+        <li>Name: @course.course_name</li>
+        <li>Date Created: @course.course_date_created</li>
+        <li>Total Hours: @course.course_total_hours</li>
+    </ul>
+    <br />
+}

@@ -127,7 +127,7 @@
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Database\TimeMachineRepository.cs" />
+    <Compile Include="Database\DatabaseRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,6 +151,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.sortable.js" />
+    <Content Include="Scripts\jquery.sortable.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -174,6 +176,8 @@
     <Content Include="Views\Report\Projects.cshtml" />
     <Content Include="Views\Report\Project.cshtml" />
     <Content Include="Views\Report\Individual.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Team\Teams.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

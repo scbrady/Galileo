@@ -25,7 +25,7 @@ namespace Galileo
                 }
 
                 // Fetch the user from the Time Machine database
-                TimeMachineRepository db = new TimeMachineRepository();
+                DatabaseRepository db = new DatabaseRepository();
                 return db.GetUser((string)HttpContext.Current.Session["username"]);
             }
         }

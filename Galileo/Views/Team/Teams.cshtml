@@ -1,0 +1,32 @@
+﻿@model Galileo.ViewModels.CourseProjectsAndUsers
+
+@{
+    ViewBag.Title = "Project Page";
+}
+
+<h3>Projects</h3>
+@foreach(var project in Model.projects)
+{
+    <ul class="connected sortable list"><h3>@project.project_name</h3>
+    </ul>
+}
+
+<h3>Users</h3>
+<ul class="connected sortable list">
+    @foreach (var user in Model.users)
+    {
+        <li>@user.user_first_name @user.user_last_name</li>
+    }
+</ul>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jquerysort")
+
+    <script>
+		    $(function() {
+			    $('.sortable').sortable({
+				    connectWith: '.connected'
+			    });
+		    });
+    </script>
+}

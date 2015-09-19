@@ -34,7 +34,7 @@ namespace Galileo.Controllers
         /// </summary>
         public ActionResult Courses()
         {
-            TimeMachineRepository db = new TimeMachineRepository();
+            DatabaseRepository db = new DatabaseRepository();
             User user = GlobalVariables.CurrentUser;
             List<Course> courses = db.GetCourses(user.user_id);
             return View(courses);
@@ -47,7 +47,7 @@ namespace Galileo.Controllers
         /// <param name="courseId">The ID of the course that the projects are in</param>
         public ActionResult Projects(int courseId)
         {
-            TimeMachineRepository db = new TimeMachineRepository();
+            DatabaseRepository db = new DatabaseRepository();
             List<Project> projects = db.GetProjects(courseId);
             List<User> members = db.GetUsersInCourse(courseId);
 
@@ -67,7 +67,7 @@ namespace Galileo.Controllers
         /// <returns></returns>
         public ActionResult Project(int projectId)
         {
-            TimeMachineRepository db = new TimeMachineRepository();
+            DatabaseRepository db = new DatabaseRepository();
             List<User> members = db.GetUsersInProject(projectId);
             return View(members);
         }
@@ -91,7 +91,7 @@ namespace Galileo.Controllers
         /// <returns></returns>
         public ActionResult Individual(string userId)
         {
-            TimeMachineRepository db = new TimeMachineRepository();
+            DatabaseRepository db = new DatabaseRepository();
             List<Entry> entries = db.GetUserEntries(userId);
             return View(entries);
         }

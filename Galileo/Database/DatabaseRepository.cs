@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace Galileo.Database
 {
-    public class TimeMachineRepository
+    public class DatabaseRepository
     {
         private readonly string _connectionString;
 
-        public TimeMachineRepository()
+        public DatabaseRepository()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["TimeMachineConnectionString"].ConnectionString;
         }
@@ -116,6 +116,18 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
                 connection.Open();
                 var entries = connection.Query<Entry>(sql, new { userId });
                 return entries.AsList();
+            }
+        }
+
+        public void Test()
+        {
+            string sql = @"SELECT * FROM [SEI_Galileo].[dbo].[ROLE]";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var results = connection.Query(sql);
+                return;
             }
         }
     }

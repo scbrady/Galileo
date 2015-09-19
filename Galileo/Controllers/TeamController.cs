@@ -1,4 +1,7 @@
-﻿using Galileo.Models;
+﻿using Galileo.Database;
+using Galileo.Models;
+using Galileo.ViewModels;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Galileo.Controllers
@@ -7,15 +10,24 @@ namespace Galileo.Controllers
     {
         public ActionResult Index()
         {
-            // Show all courses that teams can be created for
-            return View();
+            DatabaseRepository db = new DatabaseRepository();
+            User user = GlobalVariables.CurrentUser;
+            List<Course> courses = db.GetCourses(user.user_id);
+            return View(courses);
         }
 
-        public ActionResult Course(int courseId)
+        public ActionResult Teams(int courseId)
         {
-            // Show any teams in the course or offer to create some from the projects in the course
-            // Show all users in the course so they can be assigned to the teams
-            return View();
+            DatabaseRepository db = new DatabaseRepository();
+            List<Project> projects = db.GetProjects(courseId);
+            List<User> members = db.GetUsersInCourse(courseId);
+
+            var viewModel = new CourseProjectsAndUsers()
+            {
+                projects = projects,
+                users = members
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
