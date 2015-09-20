@@ -1,0 +1,16 @@
+﻿@model List<Galileo.Models.Entry>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@foreach(var entry in Model)
+{
+    <ul>
+        <li>@entry.entry_id</li>
+        <li>@entry.course_name</li>
+        <li>@entry.entry_work_accomplished</li>
+        <li>@entry.project_name</li>
+    </ul>
+    <br />
+}

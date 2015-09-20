@@ -1,0 +1,29 @@
+﻿@model Galileo.ViewModels.CourseProjectsAndUsers
+
+@{
+    ViewBag.Title = "Project Page";
+}
+
+<h3>Projects</h3>
+@foreach(var project in Model.projects)
+{
+    <ul>
+        <li>@Html.ActionLink("Course ID: " + project.project_id, "Project", "Report", new { projectId = project.project_id }, null)</li>
+        <li>Name: @project.project_name</li>
+        <li>Date Created: @project.project_date_created</li>
+        <li>Total Hours: @project.project_total_hours</li>
+    </ul>
+    <br />
+}
+
+<h3>Users</h3>
+@foreach (var user in Model.users)
+{
+    <ul>
+        <li>@Html.ActionLink("User ID: " + user.user_id, "Individual", "Report", new { userId = user.user_id }, null)</li>
+        <li>ID: @user.user_id</li>
+        <li>Name: @user.user_first_name @user.user_last_name</li>
+        <li>Total Hours: @user.user_total_hours</li>
+    </ul>
+    <br />
+}

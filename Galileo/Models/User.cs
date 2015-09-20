@@ -9,5 +9,6 @@
         public bool user_is_student { get; set; }
         public bool user_is_teacher { get; set; }
         public bool user_is_manager { get; set; }
+        public int user_total_hours { get; set; }
     }
 }
