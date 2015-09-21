@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
+<!DOCTYPE html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +7,26 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Report", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Report")</li>
-                    <li>@Html.ActionLink("About", "About", "Report")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Report")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
+<body>
+    <header>
+        <div id="nav_color"></div>
+        <div class="circle"><div class="inner_circle"><div class="inner_circle2"><img src="final_logo.png" id="logo_size" /></div></div></div>
+        <div id="student_name"><p>Firstname Lastname</p></div>
+        <nav>
+            <ul>
+                <li><img src="cog.png" /><span>Dashboard</span></li>
+                <li><img src="stat.png" />Statistics</li>
+                <li style="border-bottom:1px solid #d2d2d2"><img src="comment.png" />Comment</li>
+            </ul>
+        </nav>
+    </header>
+    <div id="top_bar">
+        <span>> Dashboard</span>
+    </div>
+    <div id="container">
+        @RenderBody()
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
