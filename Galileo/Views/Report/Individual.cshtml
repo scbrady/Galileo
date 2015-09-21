@@ -4,13 +4,41 @@
     ViewBag.Title = "Home Page";
 }
 
-@foreach(var entry in Model)
-{
-    <ul>
-        <li>@entry.entry_id</li>
-        <li>@entry.course_name</li>
-        <li>@entry.entry_work_accomplished</li>
-        <li>@entry.project_name</li>
-    </ul>
-    <br />
+
+<table id="entries_table" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Work Accomplished (v2)</th>
+            <th>Work Accomplished</th>
+            <th>Comment</th>
+            <th>Project Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var entry in Model)
+        {
+            <tr>
+                <td>@entry.user_first_name @entry.user_last_name</td>
+                <td>@entry.entry_begin_time</td>
+                <td>@entry.entry_work_accomplished</td>
+                <td>@entry.entry_work_accomplished</td>
+                <td>@entry.entry_comment</td>
+                <td>@entry.project_name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#entries_table').DataTable();
+        });
+    </script>
 }

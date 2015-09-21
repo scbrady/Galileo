@@ -130,29 +130,9 @@ nav li img {
    height:150px;
 }
 .circle {
-   border-radius: 50%;
+   content: url(../Content/Images/circle_logo.png);
    margin:0 auto;
-   width: 155px;
-   height: 155px;
-   padding:10px;
    margin-top:-82.5px; 
-   background-color:white;
-   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-}
-.inner_circle {
-   border-radius: 50%;
-   width:150px;
-   height:150px;
-   margin-left:-2px; margin-top:-3px;
-   background-color:white;
-   border:5px solid #dc6540;
-}
-.inner_circle2 {
-   border-radius: 50%;
-   width:140px;
-   height:140px;
-   margin:4.5px;
-   background-color:#dc6540;
 }
 #logo_size {
    height:85px;
