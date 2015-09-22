@@ -1,0 +1,116 @@
+
+<html>
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Page - My ASP.NET Application</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/site.css" rel="stylesheet"/>
+
+    <script src="/Scripts/modernizr-2.6.2.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <div id="nav_color"></div>
+        <div class="circle"></div>
+        <div id="student_name"><p>Firstname Lastname</p></div>
+        <nav>
+            <ul>
+                <li><img src="../Content/Images/cog.png" /><span>Dashboard</span></li>
+                <li><img src="../Content/Images/stat.png" />Statistics</li>
+                <li style="border-bottom:1px solid #d2d2d2"><img src="../Content/Images/comment.png" />Comment</li>
+            </ul>
+        </nav>
+    </header>
+    <div id="top_bar">
+        <span>&gt; Dashboard</span>
+    </div>
+    <div id="container">
+        
+
+
+<h3>Projects</h3>
+<form action="/Team/Create" method="post"><input name="__RequestVerificationToken" type="hidden" value="Ch5aOt_AuofhvIp2GDX9jaH0fz5EvvMYcLfwtd59fUDFc_R_kSEuXOgfwUfIj5GHtFfLY97aMH58ME8o85zkdSIP2sjF_3Fev-Uu9HQDiEKwLsUPZiZiIcm6-P474yPh0" />    <ul data-project-index="0" class="connected sortable list"><h3>Project Manager</h3></ul>
+    <input type="hidden" name="teams[0].userIds" value="" />
+        <ul data-project-index="1" class="connected sortable list"><h3>WhiteCollar</h3></ul>
+        <input type="hidden" name="teams[1].projectId" value="21" />
+        <input type="hidden" name="teams[1].userIds" value="" />
+        <ul data-project-index="2" class="connected sortable list"><h3>Meerkat</h3></ul>
+        <input type="hidden" name="teams[2].projectId" value="22" />
+        <input type="hidden" name="teams[2].userIds" value="" />
+        <ul data-project-index="3" class="connected sortable list"><h3>Miscellaneous</h3></ul>
+        <input type="hidden" name="teams[3].projectId" value="24" />
+        <input type="hidden" name="teams[3].userIds" value="" />
+    <input type="submit" value="Submit">
+</form>
+<h3>Users</h3>
+<ul class="connected sortable list">
+        <li id="114369">Alex Harper</li>
+        <li id="115245">James Mulvihill</li>
+        <li id="115749">Koffi Wodome</li>
+        <li id="116042">Stephen Chappell</li>
+        <li id="116156">Rob Yoder</li>
+        <li id="116431">Jake Canipe</li>
+        <li id="116730">Stephen Weaver</li>
+        <li id="116766">Zach Evans</li>
+        <li id="117288">Gordon Badgett</li>
+        <li id="117567">Noah Conrad</li>
+        <li id="117602">Dannie Scull</li>
+        <li id="117751">Chris Chord</li>
+        <li id="118679">James Miyashita</li>
+</ul>
+
+
+    </div>
+    <script src="/Scripts/jquery-1.10.2.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+    
+    <script src="/Scripts/jquery.sortable.js"></script>
+
+
+    <script>
+		    $(function() {
+			    $('.sortable').sortable({
+				    connectWith: '.connected'
+			    });
+
+			    $('.sortable').sortable().bind('sortupdate', function (e, ui) {
+			        var start_index = ui.startparent.data('project-index');
+			        var end_index = ui.endparent.data('project-index');
+
+			        var student_ids = '';
+			        ui.endparent.find( "li" ).each(function (i, li) {
+			            var user_id = $(li).attr('id');
+			            student_ids = student_ids + (!student_ids ? '' : ',') + user_id;
+			        });
+			        $('[name="teams[' + end_index + '].userIds"]').val(student_ids);
+
+			        if (typeof start_index != 'undefined')
+			        {
+			            student_ids = '';
+			            ui.startparent.find("li").each(function (i, li) {
+			                var user_id = $(li).attr('id');
+			                student_ids = student_ids + (!student_ids ? '' : ',') + user_id;
+			            });
+			            $('[name="teams[' + start_index + '].userIds"]').val(student_ids);
+			        }
+			    });
+		    });
+    </script>
+
+
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome","requestId":"670d4e76f95c4f3a810cd302eb312de2"}
+</script>
+<script type="text/javascript" src="http://localhost:50609/acc9d13a87194d42a772a1365b5d09a7/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>
