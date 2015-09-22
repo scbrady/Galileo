@@ -119,9 +119,34 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
             }
         }
 
-        public void Test()
+        public void InsertTeamMembers(List<Team> teams)
         {
-            string sql = @"SELECT * FROM [SEI_Galileo].[dbo].[ROLE]";
+            bool addComma = false;
+            string sql = @"INSERT INTO [SEI_Galileo].[dbo].[ROLE] (student_id, team_id, position) VALUES ";
+
+            for (int teamIndex = 0; teamIndex < teams.Count; teamIndex++)
+            {
+                string[] userIds = null;
+                if (teams[teamIndex].userIds != null)
+                    userIds = teams[teamIndex].userIds.Split(',');
+                for (int userIndex = 0; userIndex < userIds.Length; userIndex++)
+                {
+                    if (addComma)
+                        sql += ", ";
+                    else
+                        addComma = true;
+
+                    if (teamIndex == 0)
+                    {
+                        if (userIndex == 0)
+                            sql += "(" + userIds[userIndex] + ", " + teams[teamIndex].projectId + ", 'PROJECT_MANAGER')";
+                    }
+                    else if (userIndex == 0)
+                        sql += "(" + userIds[userIndex] + ", " + teams[teamIndex].projectId + ", 'TEAM_LEADER')";
+                    else
+                        sql += "(" + userIds[userIndex] + ", " + teams[teamIndex].projectId + ", 'MEMBER')";
+                }
+            }
 
             using (var connection = new SqlConnection(_connectionString))
             {

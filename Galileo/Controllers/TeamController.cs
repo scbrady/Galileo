@@ -3,6 +3,7 @@ using Galileo.Models;
 using Galileo.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Galileo.Controllers
 {
@@ -35,6 +36,9 @@ namespace Galileo.Controllers
         public ActionResult Create(CourseProjectsAndUsers test)
         {
             // This will add the course to the DB and redirect back to the course page
+            DatabaseRepository db = new DatabaseRepository();
+            db.InsertTeamMembers(test.teams.ToList());
+
             return RedirectToAction("Index");
         }
 
