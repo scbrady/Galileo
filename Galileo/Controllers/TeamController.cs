@@ -32,10 +32,10 @@ namespace Galileo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create()
+        public ActionResult Create(CourseProjectsAndUsers test)
         {
             // This will add the course to the DB and redirect back to the course page
-            return RedirectToAction("Course");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
