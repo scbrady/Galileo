@@ -155,5 +155,28 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
                 return;
             }
         }
+
+        public List<Entry> GetEntries(int courseId)
+        {
+            string sql = @"SELECT e.*" +
+      ", c.course_name"+
+      ",u.user_id"+
+      ",u.user_first_name" +
+      ",u.user_last_name" +
+      ",p.project_name" +
+"FROM[ENTRY]   e" +
+"JOIN[PROJECT] p ON entry_project_id = project_id" +
+"JOIN[COURSE]  c ON p.project_course_id = @courseId" +
+"JOIN[USER]    u ON e.entry_user_id = u.user_id" +
+"where c.course_id = 25" +
+"order by entry_user_id";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var entries = connection.Query<Entry>(sql, new { courseId });
+                return entries.AsList();
+            }
+        }
     }
 }
