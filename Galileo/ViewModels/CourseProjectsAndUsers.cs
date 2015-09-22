@@ -10,6 +10,7 @@ namespace Galileo.ViewModels
     {
         public List<Project> projects { get; set; }
         public List<User> users { get; set; }
+        public string projectManager { get; set; }
         public IEnumerable<Team> teams { get; set; }
     }
 }

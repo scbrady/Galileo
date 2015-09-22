@@ -8,13 +8,13 @@
 @using (Html.BeginForm("Create", "Team", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <ul data-project-index="0" class="connected sortable list"><h3>Project Manager</h3></ul>
-    <input type="hidden" name="teams[0].userIds" value="" />
-    for (int index = 1; index < Model.projects.Count; index++)
+    <ul data-project-index="projectManager" class="connected sortable list">Project Manager</ul>
+    <input id="hidden_projectManager" type="hidden" name="projectManager" value="" />
+    for (int index = 0; index < Model.projects.Count; index++)
     {
-        <ul data-project-index="@index" class="connected sortable list"><h3>@Model.projects[index].project_name</h3></ul>
+        <ul data-project-index="@index" class="connected sortable list">@Model.projects[index].project_name</ul>
         <input type="hidden" name="teams[@index].projectId" value="@Model.projects[index].project_id" />
-        <input type="hidden" name="teams[@index].userIds" value="" />
+        <input id="hidden_@index" type="hidden" name="teams[@index].userIds" value="" />
     }
     <input type="submit" value="Submit">
 }
@@ -41,21 +41,21 @@
 			        var end_index = ui.endparent.data('project-index');
 
 			        var student_ids = '';
-			        ui.endparent.find( "li" ).each(function (i, li) {
-			            var user_id = $(li).attr('id');
-			            student_ids = student_ids + (!student_ids ? '' : ',') + user_id;
-			        });
-			        $('[name="teams[' + end_index + '].userIds"]').val(student_ids);
 
-			        if (typeof start_index != 'undefined')
-			        {
-			            student_ids = '';
+			        if (typeof start_index != 'undefined') {
 			            ui.startparent.find("li").each(function (i, li) {
 			                var user_id = $(li).attr('id');
 			                student_ids = student_ids + (!student_ids ? '' : ',') + user_id;
 			            });
-			            $('[name="teams[' + start_index + '].userIds"]').val(student_ids);
+			            $('#hidden_' + start_index).val(student_ids);
 			        }
+
+			        student_ids = '';
+			        ui.endparent.find("li").each(function (i, li) {
+			            var user_id = $(li).attr('id');
+			            student_ids = student_ids + (!student_ids ? '' : ',') + user_id;
+			        });
+			        $('#hidden_' + end_index).val(student_ids);
 			    });
 		    });
     </script>

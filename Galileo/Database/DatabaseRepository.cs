@@ -119,40 +119,73 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
             }
         }
 
-        public void InsertTeamMembers(List<Team> teams)
+        public void InsertProjectManager(string userId, int[] projectIds)
         {
-            bool addComma = false;
             string sql = @"INSERT INTO [SEI_Galileo].[dbo].[ROLE] (student_id, team_id, position) VALUES ";
+            var values = new List<string>();
 
-            for (int teamIndex = 0; teamIndex < teams.Count; teamIndex++)
+            foreach (int projectId in projectIds)
+                values.Add("(" + userId + ", " + projectId + ", 'PROJECT_MANAGER')");
+
+            if (values.Any())
             {
-                string[] userIds = null;
-                if (teams[teamIndex].userIds != null)
-                    userIds = teams[teamIndex].userIds.Split(',');
-                for (int userIndex = 0; userIndex < userIds.Length; userIndex++)
+                sql += string.Join(",", values);
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    if (addComma)
-                        sql += ", ";
-                    else
-                        addComma = true;
-
-                    if (teamIndex == 0)
-                    {
-                        if (userIndex == 0)
-                            sql += "(" + userIds[userIndex] + ", " + teams[teamIndex].projectId + ", 'PROJECT_MANAGER')";
-                    }
-                    else if (userIndex == 0)
-                        sql += "(" + userIds[userIndex] + ", " + teams[teamIndex].projectId + ", 'TEAM_LEADER')";
-                    else
-                        sql += "(" + userIds[userIndex] + ", " + teams[teamIndex].projectId + ", 'MEMBER')";
+                    connection.Open();
+                    connection.Query(sql);
                 }
             }
+        }
+
+        public void InsertTeamMembers(List<Team> teams)
+        {
+            string sql = @"INSERT INTO [SEI_Galileo].[dbo].[ROLE] (student_id, team_id, position) VALUES ";
+            var values = new List<string>();
+
+            foreach (var team in teams)
+            {
+                string[] userIds = null;
+                if (team.userIds != null)
+                {
+                    userIds = team.userIds.Split(',');
+                    for (int userIndex = 0; userIndex < userIds.Length; userIndex++)
+                    {
+                        if (userIndex == 0)
+                            values.Add("(" + userIds[userIndex] + ", " + team.projectId + ", 'TEAM_LEADER')");
+                        else
+                            values.Add("(" + userIds[userIndex] + ", " + team.projectId + ", 'MEMBER')");
+                    }
+                }
+            }
+
+            if (values.Any())
+            {
+                sql += string.Join(",", values);
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    connection.Query(sql);
+                }
+            }
+        }
+
+        public List<Entry> GetEntriesForCourse(int courseId)
+        {
+            string sql = @"
+SELECT e.*, c.course_name,u.user_id,u.user_first_name,u.user_last_name,p.project_name
+FROM[ENTRY]   e
+JOIN[PROJECT] p ON entry_project_id = project_id
+JOIN[COURSE]  c ON p.project_course_id = c.course_id
+JOIN[USER]    u ON e.entry_user_id = u.user_id
+where c.course_id = @courseId
+order by entry_user_id";
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                var results = connection.Query(sql);
-                return;
+                var entries = connection.Query<Entry>(sql, new { courseId });
+                return entries.AsList();
             }
         }
     }

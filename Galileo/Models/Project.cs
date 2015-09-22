@@ -17,5 +17,6 @@ namespace Galileo.Models
         public DateTime project_end_date { get; set; }
         public bool project_is_enabled { get; set; }
         public int project_total_hours { get; set; }
+        public bool project_is_team { get; set; }
     }
 }

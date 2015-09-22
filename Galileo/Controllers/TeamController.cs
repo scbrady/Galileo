@@ -37,25 +37,14 @@ namespace Galileo.Controllers
         {
             // This will add the course to the DB and redirect back to the course page
             DatabaseRepository db = new DatabaseRepository();
+
+            int[] projectIds = test.teams.Where(t => t.userIds != null && t.projectId != 0).Select(t => t.projectId).ToArray();
+            if(!string.IsNullOrEmpty(test.projectManager))
+                db.InsertProjectManager(test.projectManager, projectIds);
+
             db.InsertTeamMembers(test.teams.ToList());
 
             return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit()
-        {
-            // This will edit add or remove students from the teams that have been created
-            return RedirectToAction("Course");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete()
-        {
-            // This will delete the team from the course
-            return RedirectToAction("Course");
         }
     }
 }

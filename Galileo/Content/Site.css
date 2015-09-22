@@ -165,3 +165,7 @@ nav li img {
 .module:hover {
    background-color:#d05833;
 }
+a.module {
+    text-decoration: none;
+    color: white;
+}

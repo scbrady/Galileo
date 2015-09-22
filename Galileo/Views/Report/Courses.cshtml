@@ -4,13 +4,11 @@
     ViewBag.Title = "Home Page";
 }
 
-@foreach(var course in Model)
+@foreach (var course in Model)
 {
-    <ul>
-        <li>@Html.ActionLink("Course ID: " + course.course_id, "Projects", "Report", new { courseId = course.course_id }, null)</li>
-        <li>Name: @course.course_name</li>
-        <li>Date Created: @course.course_date_created</li>
-        <li>Total Hours: @course.course_total_hours</li>
-    </ul>
-    <br />
+    <a class="module" href="Projects?courseId=@course.course_id">
+        <h1>@course.course_name</h1>
+        <h4>Total Hours: <b>@course.course_total_hours</b> / Total Hours: <b>@course.course_total_hours</b> / Total Hours: <b>@course.course_total_hours</b></h4>
+        <h5>v  see more  v</h5>
+    </a>
 }
