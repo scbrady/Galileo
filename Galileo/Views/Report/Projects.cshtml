@@ -5,25 +5,21 @@
 }
 
 <h3>Projects</h3>
-@foreach(var project in Model.projects)
+@foreach (var project in Model.projects)
 {
-    <ul>
-        <li>@Html.ActionLink("Course ID: " + project.project_id, "Project", "Report", new { projectId = project.project_id }, null)</li>
-        <li>Name: @project.project_name</li>
-        <li>Date Created: @project.project_date_created</li>
-        <li>Total Hours: @project.project_total_hours</li>
-    </ul>
-    <br />
+    <a class="module" href="Project?projectId=@project.project_id">
+        <h1>@project.project_name</h1>
+        <h4>Total Hours: <b>@project.project_total_hours</b> / Total Hours: <b>@project.project_total_hours</b> / Total Hours: <b>@project.project_total_hours</b></h4>
+        <h5>v  see more  v</h5>
+    </a>
 }
 
 <h3>Users</h3>
 @foreach (var user in Model.users)
 {
-    <ul>
-        <li>@Html.ActionLink("User ID: " + user.user_id, "Individual", "Report", new { userId = user.user_id }, null)</li>
-        <li>ID: @user.user_id</li>
-        <li>Name: @user.user_first_name @user.user_last_name</li>
-        <li>Total Hours: @user.user_total_hours</li>
-    </ul>
-    <br />
+    <a class="module" href="Individual?userId=@user.user_id">
+        <h1>@user.user_first_name @user.user_last_name</h1>
+        <h4>Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b></h4>
+        <h5>v  see more  v</h5>
+    </a>
 }

@@ -7,10 +7,9 @@
 <h3>Users</h3>
 @foreach (var user in Model)
 {
-    <ul>
-        <li>ID: @user.user_id</li>
-        <li>Name: @user.user_first_name @user.user_last_name</li>
-        <li>Total Hours: @user.user_total_hours</li>
-    </ul>
-    <br />
+    <a class="module" href="Individual?userId=@user.user_id">
+        <h1>@user.user_first_name @user.user_last_name</h1>
+        <h4>Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b></h4>
+        <h5>v  see more  v</h5>
+    </a>
 }

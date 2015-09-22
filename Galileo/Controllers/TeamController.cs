@@ -33,16 +33,15 @@ namespace Galileo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CourseProjectsAndUsers test)
+        public ActionResult Create(CourseProjectsAndUsers course)
         {
-            // This will add the course to the DB and redirect back to the course page
             DatabaseRepository db = new DatabaseRepository();
 
-            int[] projectIds = test.teams.Where(t => t.userIds != null && t.projectId != 0).Select(t => t.projectId).ToArray();
-            if(!string.IsNullOrEmpty(test.projectManager))
-                db.InsertProjectManager(test.projectManager, projectIds);
+            int[] projectIds = course.teams.Where(t => t.userIds != null && t.projectId != 0).Select(t => t.projectId).ToArray();
+            if(!string.IsNullOrEmpty(course.projectManager))
+                db.InsertProjectManager(course.projectManager, projectIds);
 
-            db.InsertTeamMembers(test.teams.ToList());
+            db.InsertTeamMembers(course.teams.ToList());
 
             return RedirectToAction("Index");
         }
