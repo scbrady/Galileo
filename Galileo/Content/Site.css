@@ -83,7 +83,9 @@ nav  ul {
     font-size: 1em;
     color:#75716a;
 }
-nav li {
+nav a {
+   color:#75716a;
+   display: block;
    padding-top:10px;
    padding-left: 15px;
    padding-bottom:10px;
@@ -93,11 +95,13 @@ nav li {
    border-left:2px solid white;
    transition:border-left background-color 0.3s ease-in;
 }
-nav li:hover {
+nav a:hover {
+   text-decoration: none;
+   color:#75716a;
    background-color:#e7e7e7;
    border-left:2px solid #dc6540;
 }
-nav li img {
+nav a img {
    height:20px;
    padding-left:5px;
    padding-right: 15px;

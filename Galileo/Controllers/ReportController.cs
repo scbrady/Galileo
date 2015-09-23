@@ -101,11 +101,11 @@ namespace Galileo.Controllers
         /// Gives a summary of the hours spent in each project/team
         /// </summary>
         /// <param name="courseId">The ID of the course that the projects are in</param>
-        public ActionResult Entries(int courseId)
+        public JsonResult Entries(int courseId)
         {
             DatabaseRepository db = new DatabaseRepository();
             List<Entry> entries = db.GetEntriesForCourse(courseId);
-            return View(entries);
+            return Json(entries, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -52,7 +52,14 @@ GROUP BY c.course_id, c.course_name, c.course_submit_day, c.course_date_created,
         public List<Project> GetProjects(int course_id)
         {
             string sql = @"
-select p.*, sum(e.entry_total_time)/60 as project_total_hours from [PROJECT] p 
+select p.*, sum(e.entry_total_time)/60 as project_total_hours,
+CASE WHEN EXISTS(SELECT * 
+                 FROM [SEI_Galileo].[dbo].[ROLE] AS r
+                 WHERE p.project_id = r.team_id) 
+             THEN 1
+             ELSE 0
+       END AS project_is_team
+from PROJECT p
 JOIN [ENTRY] e ON e.entry_project_id = p.project_id
 where p.project_course_id = @course_id
 group by p.project_begin_date, p.project_course_id, p.project_created_by, p.project_date_created, p.project_description, p.project_end_date, p.project_id, p.project_id, p.project_is_enabled, p.project_name";
@@ -173,12 +180,13 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
         public List<Entry> GetEntriesForCourse(int courseId)
         {
             string sql = @"
-SELECT e.*, c.course_name,u.user_id,u.user_first_name,u.user_last_name,p.project_name
+SELECT e.*, c.course_name, u.user_first_name, u.user_last_name, p.project_name, sum(e.entry_total_time)/60 as entry_total_hours
 FROM[ENTRY]   e
 JOIN[PROJECT] p ON entry_project_id = project_id
 JOIN[COURSE]  c ON p.project_course_id = c.course_id
 JOIN[USER]    u ON e.entry_user_id = u.user_id
 where c.course_id = @courseId
+group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, entry_id, entry_begin_time, entry_end_time, entry_total_time, entry_work_accomplished, entry_comment, entry_user_id, entry_project_id, entry_location_id, entry_category_id
 order by entry_user_id";
 
             using (var connection = new SqlConnection(_connectionString))
