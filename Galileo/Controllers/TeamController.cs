@@ -9,6 +9,10 @@ namespace Galileo.Controllers
 {
     public class TeamController : Controller
     {
+        /// <summary>
+        /// If the user has Teacher privileges, this will list all courses the user teaches
+        /// </summary>
+        /// <returns>List of Courses</returns>
         public ActionResult Index()
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -17,6 +21,11 @@ namespace Galileo.Controllers
             return View(courses);
         }
 
+        /// <summary>
+        /// Lists all teams taking a given course
+        /// </summary>
+        /// <param name="courseId">ID variable of course in question</param>
+        /// <returns>List of Teams</returns>
         public ActionResult Teams(int courseId)
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -31,6 +40,11 @@ namespace Galileo.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// Checks and validates identity of user, then redirects them to the Index with proper permissions
+        /// </summary>
+        /// <param name="course"></param>
+        /// <returns>Sends user to Index page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CourseProjectsAndUsers course)
