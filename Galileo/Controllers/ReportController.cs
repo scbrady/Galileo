@@ -80,7 +80,9 @@ namespace Galileo.Controllers
         /// <returns></returns>
         public ActionResult Team(int teamId)
         {
-            return View();
+            DatabaseRepository db = new DatabaseRepository();
+            List<User> members = db.GetUsersInProject(teamId);
+            return View(members);
         }
 
         /// <summary>
