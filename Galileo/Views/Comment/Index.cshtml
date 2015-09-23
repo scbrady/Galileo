@@ -1,0 +1,14 @@
+﻿@model Galileo.ViewModels.Comments
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.TextBoxFor(m => m.recipients);
+    @Html.TextAreaFor(m => m.comment);
+
+    <input type="submit" value="Submit">
+}
