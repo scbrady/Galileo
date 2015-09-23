@@ -17,7 +17,7 @@
 <h3>Teams</h3>
 @foreach (var team in Model.projects.Where(p => p.project_is_team == true).ToList())
 {
-    <a class="module" href="Project?projectId=@team.project_id">
+    <a class="module" href="Team?teamId=@team.project_id">
         <h1>@team.project_name</h1>
         <h4>Total Hours: <b>@team.project_total_hours</b> / Total Hours: <b>@team.project_total_hours</b> / Total Hours: <b>@team.project_total_hours</b></h4>
         <h5>v  see more  v</h5>

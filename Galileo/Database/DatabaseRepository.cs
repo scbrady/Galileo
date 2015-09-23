@@ -92,6 +92,25 @@ group by u.user_first_name, u.user_last_name, e.entry_user_id";
         public List<User> GetUsersInProject(int projectId)
         {
             string sql = @"
+SELECT user_id, user_first_name, user_last_name, SUM(entry_total_time)/60 as user_total_hours
+FROM [SEI_TimeMachine2].[dbo].[USER]
+join [SEI_TimeMachine2].[dbo].[entry] on user_id = entry_user_id
+join [SEI_TimeMachine2].[dbo].[project] on project_id = entry_project_id
+where project_id = @projectId
+group by user_id, user_first_name, user_last_name
+order by user_total_hours";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var users = connection.Query<User>(sql, new { projectId });
+                return users.AsList();
+            }
+        }
+
+        public List<User> GetUsersInTeam(int teamId)
+        {
+            string sql = @"
     SELECT r.student_id, r.team_id, user_first_name, user_last_name, ISNULL(SUM(entry_total_time)/60, 0) as user_total_hours,
 		CASE WHEN r.position = 'TEAM_LEADER'
 		THEN 1
@@ -106,14 +125,14 @@ group by u.user_first_name, u.user_last_name, e.entry_user_id";
   join [SEI_TimeMachine2].[dbo].[USER] on user_id = r.student_id
   join [SEI_TimeMachine2].[dbo].[project] on r.team_id = project_id 
   left join [SEI_TimeMachine2].[dbo].[entry] e on project_id = entry_project_id and e.entry_user_id = r.student_id
-  where project_id = @projectId
+  where project_id = @teamId
   group by r.student_id, user_first_name, user_last_name, r.team_id, position
   order by user_total_hours";
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                var users = connection.Query<User>(sql, new { projectId });
+                var users = connection.Query<User>(sql, new { teamId });
                 return users.AsList();
             }
         }

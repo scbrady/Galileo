@@ -1,4 +1,4 @@
-﻿@model Galileo.ViewModels.CourseProjectsAndUsers
+﻿@model List<Galileo.Models.User>
 
 @{
     ViewBag.Title = "Team Member Page";
@@ -6,7 +6,7 @@
 
 
 <h3>Project Manager</h3>
-@foreach (var member in Model.users.Where(u => u.user_is_project_manager == true).ToList())
+@foreach (var member in Model.Where(u => u.user_is_project_manager == true).ToList())
 {
     <a class="module" href="Individual?userId=@member.user_id">
         <h1>@member.user_first_name @member.user_last_name</h1>
@@ -16,7 +16,7 @@
 
 
 <h3>Team Leaders</h3>
-@foreach (var member in Model.users.Where(u => u.user_is_team_leader == true).ToList())
+@foreach (var member in Model.Where(u => u.user_is_team_leader == true).ToList())
 {
     <a class="module" href="Individual?userId=@member.user_id">
         <h1>@member.user_first_name @member.user_last_name</h1>
@@ -25,7 +25,7 @@
 }
 
 <h3>Team Members</h3>
-@foreach (var member in Model.users.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList())
+@foreach (var member in Model.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList())
 {
     <a class="module" href="Individual?userId=@member.user_id">
         <h1>@member.user_first_name @member.user_last_name</h1>
