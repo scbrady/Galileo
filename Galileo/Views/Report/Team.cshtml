@@ -1,0 +1,15 @@
+﻿@model List<Galileo.Models.User>
+
+@{
+    ViewBag.Title = "Project Page";
+}
+
+<h3>Users</h3>
+@foreach (var user in Model)
+{
+    <a class="module" href="Individual?userId=@user.user_id">
+        <h1>@user.user_first_name @user.user_last_name</h1>
+        <h4>Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b></h4>
+        <h5>v  see more  v</h5>
+    </a>
+}
