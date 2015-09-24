@@ -1,8 +1,5 @@
 ﻿using Galileo.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Galileo.ViewModels
 {
@@ -11,5 +8,6 @@ namespace Galileo.ViewModels
         public List<Comment> comments { get; set; }
         public string recipients { get; set; }
         public string comment { get; set; }
+        public string commenter_id { get; set; }
     }
 }

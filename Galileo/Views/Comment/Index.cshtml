@@ -7,7 +7,8 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.TextBoxFor(m => m.recipients);
+    @Html.HiddenFor(m => m.commenter_id)
+    @Html.TextBoxFor(m => m.recipients, new { id = "recipients"});
     @Html.TextAreaFor(m => m.comment);
 
     <input type="submit" value="Submit">

@@ -187,6 +187,7 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Team\Teams.cshtml" />
     <Content Include="Views\Report\Team.cshtml" />
+	<Content Include="Views\Comment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

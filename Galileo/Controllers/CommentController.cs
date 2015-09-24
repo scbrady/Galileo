@@ -1,4 +1,5 @@
 ﻿using Galileo.Models;
+using Galileo.ViewModels;
 using System.Web.Mvc;
 
 namespace Galileo.Controllers
@@ -7,9 +8,12 @@ namespace Galileo.Controllers
     {
         public ActionResult Index()
         {
+            User user = GlobalVariables.CurrentUser;
             // Show all comments stored for the particular user
             // Should show all comments received and given
-            return View();
+            var comments = new Comments();
+            comments.commenter_id = user.user_id;
+            return View(comments);
         }
 
         [HttpPost]
