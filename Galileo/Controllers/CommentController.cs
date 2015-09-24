@@ -1,5 +1,7 @@
-﻿using Galileo.Models;
+﻿﻿using Galileo.Models;
 using Galileo.ViewModels;
+﻿using Galileo.Database;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Galileo.Controllers
@@ -38,6 +40,13 @@ namespace Galileo.Controllers
         {
             // This will delete the comment from the DB and redirect back to the comment page
             return RedirectToAction("Index");
+        }
+
+        public JsonResult Users()
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            List<User> users = db.GetAllUsers();
+            return Json(users, JsonRequestBehavior.AllowGet);
         }
     }
 }
