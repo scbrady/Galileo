@@ -147,6 +147,7 @@ order by user_total_hours";
                 return users.AsList();
             }
         }
+
         public List<Entry> GetUserEntries(string userId)
         {
             string sql = @"
