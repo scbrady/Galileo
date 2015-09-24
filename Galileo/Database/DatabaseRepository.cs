@@ -137,6 +137,16 @@ order by user_total_hours";
             }
         }
 
+        public List<User> GetAllUsers()
+        {
+            string sql = @"select USER_ID, user_first_name, user_last_name from [user]";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var users = connection.Query<User>(sql);
+                return users.AsList();
+            }
+        }
         public List<Entry> GetUserEntries(string userId)
         {
             string sql = @"
