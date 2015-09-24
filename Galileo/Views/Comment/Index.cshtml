@@ -13,3 +13,47 @@
 
     <input type="submit" value="Submit">
 }
+
+@section scripts {
+    @Scripts.Render("~/bundles/selectize")
+
+    <script>
+		$(function() {
+		    $('#recipients').selectize({
+                delimeter: ',',
+		        persist: false,
+		        valueField: 'user_id',
+		        labelField: 'user_first_name',
+		        searchField: ['user_first_name', 'user_first_name', 'user_id'],
+		        preload: true,
+		        render: {
+		            item: function (item, escape) {
+		                return '<div>' +
+                            (item.user_first_name ? '<span class="user_name">' + escape(item.user_first_name) + ' ' + escape(item.user_last_name) + '</span>' : '') +
+                            (item.user_id ? '<span class="user_id">' + escape(item.user_id) + '</span>' : '') +
+                        '</div>';
+		            },
+		            option: function (item, escape) {
+		                var label = item.user_first_name + ' ' + item.user_last_name;
+		                var caption = item.user_id;
+		                return '<div>' +
+                            '<span class="label">' + escape(label) + '</span>' +
+                            '<span class="caption">' + escape(caption) + '</span>' +
+                        '</div>';
+		            }
+		        },
+		        load: function (query, callback) {
+		            if (!query.length) return callback();
+
+		            $.ajax({
+		                url: '/Comment/Users',
+		                dataType: 'json',
+		                success: function (data) {
+		                    callback(data);
+		                }
+		            });
+		        }
+		    });
+		});
+    </script>
+}
