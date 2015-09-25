@@ -10,6 +10,6 @@ namespace Galileo.Models
         public string recipient_id { get; set; }
         public string commenter_id { get; set; }
         public DateTime created_at { get; set; }
-        public string comment { get; set; }
+        public string comment_text { get; set; }
     }
 }

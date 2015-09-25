@@ -150,6 +150,7 @@
     <Content Include="Content\Images\final_logo.png" />
     <Content Include="Content\Images\stat.png" />
     <Content Include="Content\Images\webprint.png" />
+    <Content Include="Content\selectize.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

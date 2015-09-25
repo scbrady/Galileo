@@ -4,6 +4,7 @@ using System.Linq;
 using Dapper;
 using Galileo.Models;
 using System.Collections.Generic;
+using System;
 
 namespace Galileo.Database
 {
@@ -234,6 +235,55 @@ order by entry_user_id";
                 connection.Open();
                 var entries = connection.Query<Entry>(sql, new { courseId });
                 return entries.AsList();
+            }
+        }
+
+        public int CreateComment (string commenter_id, string comment)
+        {
+            DateTime timestamp = DateTime.Now;
+            string sql = @"
+INSERT INTO [SEI_Galileo].[dbo].[COMMENT] (commenter_id, comment_text, created_at) VALUES (@commenter_id, @comment, @timestamp);
+SELECT CAST(SCOPE_IDENTITY() as int)";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var id = connection.Query<int>(sql, new { commenter_id, comment, timestamp }).Single();
+                return id;
+            }
+        }
+
+        public void LinkComment (int commentId, string[] recipients)
+        {
+            string sql = @"INSERT INTO [SEI_Galileo].[dbo].[RECIPIENTS] (comment_id, recipient_id) VALUES ";
+            var values = new List<string>();
+
+            foreach (string recipient in recipients)
+                values.Add("(" + commentId + ", " + recipient + ")");
+
+            if (values.Any())
+            {
+                sql += string.Join(",", values);
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    connection.Query(sql);
+                }
+            }
+        }
+
+        public List<Comment> GetComments (string userId)
+        {
+            string sql = @"
+select c.id, comment_text, commenter_id, created_at, recipient_id from [SEI_Galileo].[dbo].[COMMENT] c
+join [SEI_Galileo].[dbo].[RECIPIENTS] r on c.id = r.comment_id
+where r.recipient_id = @userId or commenter_id = @userId";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var comments = connection.Query<Comment>(sql, new { userId });
+                return comments.AsList();
             }
         }
     }

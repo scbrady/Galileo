@@ -1,15 +1,34 @@
 ﻿@model Galileo.ViewModels.Comments
+
+@section styles {
+    @Styles.Render("~/Content/selectize")
+}
+
 @{
     ViewBag.Title = "Home Page";
 }
 
-@using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+@foreach (var comment in Model.comments)
+{
+    <ul>
+        <li>@comment.commenter_id</li>
+        <li>@comment.recipient_id</li>
+        <li>@comment.comment_text</li>
+        <li>@comment.created_at</li>
+    </ul>
+}
+
+@using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { id = "comment-form" }))
 {
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(m => m.commenter_id)
+
+    @Html.LabelFor(m => m.recipients)<br />
     @Html.TextBoxFor(m => m.recipients, new { id = "recipients"});
-    @Html.TextAreaFor(m => m.comment);
+
+    @Html.LabelFor(m => m.comment)<br />
+    @Html.TextAreaFor(m => m.comment)<br />
 
     <input type="submit" value="Submit">
 }
@@ -21,7 +40,9 @@
 		$(function() {
 		    $('#recipients').selectize({
                 delimeter: ',',
-		        persist: false,
+                persist: false,
+                maxOptions: 5,
+                closeAfterSelect: true,
 		        valueField: 'user_id',
 		        labelField: 'user_first_name',
 		        searchField: ['user_first_name', 'user_first_name', 'user_id'],
@@ -29,16 +50,16 @@
 		        render: {
 		            item: function (item, escape) {
 		                return '<div>' +
-                            (item.user_first_name ? '<span class="user_name">' + escape(item.user_first_name) + ' ' + escape(item.user_last_name) + '</span>' : '') +
-                            (item.user_id ? '<span class="user_id">' + escape(item.user_id) + '</span>' : '') +
+                            (item.user_first_name ? '<span class="selectize-user-name">' + escape(item.user_first_name) + ' ' + escape(item.user_last_name) + '</span>' : '') +
+                            (item.user_id ? '<span class="selectize-user-id">&lt;' + escape(item.user_id) + '&gt;</span>' : '') +
                         '</div>';
 		            },
 		            option: function (item, escape) {
 		                var label = item.user_first_name + ' ' + item.user_last_name;
 		                var caption = item.user_id;
 		                return '<div>' +
-                            '<span class="label">' + escape(label) + '</span>' +
-                            '<span class="caption">' + escape(caption) + '</span>' +
+                            '<span class="selectize-label">' + escape(label) + '</span>' +
+                            '<span class="selectize-caption">' + escape(caption) + '</span>' +
                         '</div>';
 		            }
 		        },

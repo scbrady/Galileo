@@ -11,18 +11,32 @@ namespace Galileo.Controllers
         public ActionResult Index()
         {
             User user = GlobalVariables.CurrentUser;
+            DatabaseRepository db = new DatabaseRepository();
             // Show all comments stored for the particular user
             // Should show all comments received and given
-            var comments = new Comments();
-            comments.commenter_id = user.user_id;
-            return View(comments);
+            var comments = db.GetComments(user.user_id);
+            var commentViewModel = new Comments
+            {
+                comments = comments,
+                commenter_id = user.user_id
+            };
+
+            return View(commentViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create()
+        public ActionResult Create(Comments newComment)
         {
             // This will add the comment to the DB and redirect back to the comment page
+            DatabaseRepository db = new DatabaseRepository();
+
+            if(!string.IsNullOrEmpty(newComment.comment))
+            {
+                int commentId = db.CreateComment(newComment.commenter_id, newComment.comment);
+                db.LinkComment(commentId, newComment.recipients.Split(','));
+            }
+
             return RedirectToAction("Index");
         }
 

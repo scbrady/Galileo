@@ -111,7 +111,7 @@ nav a img {
    min-width:950px;
    position:relative;
    padding-top:40px;
-   text-align:center;
+   /*text-align:center;*/
 }
 #top_bar {
    width: 100%;
@@ -172,4 +172,26 @@ nav a img {
 a.module {
     text-decoration: none;
     color: white;
+}
+
+.selectize-caption {
+    font-size: 12px;
+    display: block;
+    opacity: 0.5;
+}
+
+.selectize-user-id {
+    margin-left: 5px;
+    opacity: 0.5;
+}
+
+#comment-form {
+    width: 50%;
+    margin: auto;
+}
+
+#comment-form textarea{
+    max-width: 100%;
+    width: 100%;
+    display: block;
 }
