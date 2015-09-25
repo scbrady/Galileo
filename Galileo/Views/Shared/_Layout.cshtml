@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
         <title>@ViewBag.Title - My ASP.NET Application</title>
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
@@ -10,23 +11,23 @@
     </head>
 
     <body>
-        <header>
-            <div id="nav_color"></div>
-            <div class="circle"></div>
-            <div id="student_name"><p>@GlobalVariables.CurrentUser.user_first_name  @GlobalVariables.CurrentUser.user_last_name</p></div>
-            <nav>
-                @if (GlobalVariables.CurrentUser.user_is_teacher)
-                {
-                    <a href="/Team"><img src="../Content/Images/cog.png" />Teams</a>
-                }
-                <a href="/Report"><img src="../Content/Images/stat.png" />Reporting</a>
-                <a href="/Comment" style="border-bottom:1px solid #d2d2d2"><img src="../Content/Images/comment.png" />Comment</a>
-            </nav>
-        </header>
-        <div id="top_bar">
-            <span>&gt; Dashboard</span>
-        </div>
-        <div id="container">
+        <nav class="navbar navbar-default fixed" role="navigation">
+            <div id="nav-color"></div>
+            <img src="~/Content/Images/circle_logo.png" class="center-block logo-img" />
+            <a class="navbar-brand" href="#"><strong>@GlobalVariables.CurrentUser.user_first_name  @GlobalVariables.CurrentUser.user_last_name</strong></a>
+
+            <div class="nav nav-tabs nav-stacked nav-items">
+                <ul class="nav navbar-nav">
+                    @if (GlobalVariables.CurrentUser.user_is_teacher)
+                    {
+                        <li><a href="/Team"><span class="glyphicon glyphicon-cog"></span>&nbsp&nbspTeams</a></li>
+                    }
+                    <li><a href="/Report"><span class="glyphicon glyphicon-file"></span>&nbsp&nbspReporting</a></li>
+                    <li><a href="/Comment"><span class="glyphicon glyphicon-comment"></span>&nbsp&nbspComments</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
             @RenderBody()
         </div>
         @Scripts.Render("~/bundles/jquery")

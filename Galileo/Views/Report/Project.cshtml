@@ -5,11 +5,18 @@
 }
 
 <h3>Users</h3>
-@foreach (var user in Model)
-{
-    <a class="module" href="Individual?userId=@user.user_id">
-        <h1>@user.user_first_name @user.user_last_name</h1>
-        <h4>Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b> / Total Hours: <b>@user.user_total_hours</b></h4>
-        <h5>v  see more  v</h5>
-    </a>
-}
+<div class="row">
+    @for (int index = 0; index < Model.Count; index++)
+    {
+        <div class="col-md-4">
+            <div class="module">
+                <a href="Individual?userId=@Model[index].user_id">
+                    <div class="inner_mod">
+                        <h1>@Model[index].user_first_name @Model[index].user_last_name</h1>
+                        <h4>Total Hours: <strong>@Model[index].user_total_hours</strong> / Total Hours: <strong>@Model[index].user_total_hours</strong> / Total Hours: <strong>@Model[index].user_total_hours</strong></h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>

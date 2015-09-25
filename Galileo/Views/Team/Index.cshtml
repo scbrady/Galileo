@@ -4,13 +4,18 @@
     ViewBag.Title = "Home Page";
 }
 
-@foreach(var course in Model)
-{
-    <ul>
-        <li>@Html.ActionLink("Course ID: " + course.course_id, "Teams", "Team", new { courseId = course.course_id }, null)</li>
-        <li>Name: @course.course_name</li>
-        <li>Date Created: @course.course_date_created</li>
-        <li>Total Hours: @course.course_total_hours</li>
-    </ul>
-    <br />
-}
+<div class="row">
+    @for (int index = 0; index < Model.Count; index++)
+    {
+        <div class="col-md-4">
+            <div class="module">
+                <a href="/Team/Teams?courseId=@Model[index].course_id">
+                    <div class="inner_mod">
+                        <h1>@Model[index].course_name</h1>
+                        <h4>Total Hours: <strong>@Model[index].course_total_hours</strong> / Total Hours: <strong>@Model[index].course_total_hours</strong> / Total Hours: <strong>@Model[index].course_total_hours</strong></h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>

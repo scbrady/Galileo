@@ -1,34 +1,53 @@
-﻿@model List<Galileo.Models.User>
+﻿@model Galileo.ViewModels.TeamMembers
 
 @{
     ViewBag.Title = "Team Member Page";
 }
 
-
-<h3>Project Manager</h3>
-@foreach (var member in Model.Where(u => u.user_is_project_manager == true).ToList())
+@if (Model.projectManager != null)
 {
-    <a class="module" href="Individual?userId=@member.user_id">
-        <h1>@member.user_first_name @member.user_last_name</h1>
-        <h5>v  see more  v</h5>
-    </a>
+    <h3>Project Manager</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="module">
+                <a href="Individual?userId=@Model.projectManager.user_id">
+                    <div class="inner_mod">
+                        <h1>@Model.projectManager.user_first_name @Model.projectManager.user_last_name</h1>
+                        <h4>Total Hours: <strong>@Model.projectManager.user_total_hours</strong> / Total Hours: <strong>@Model.projectManager.user_total_hours</strong> / Total Hours: <strong>@Model.projectManager.user_total_hours</strong></h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 }
 
-
-<h3>Team Leaders</h3>
-@foreach (var member in Model.Where(u => u.user_is_team_leader == true).ToList())
-{
-    <a class="module" href="Individual?userId=@member.user_id">
-        <h1>@member.user_first_name @member.user_last_name</h1>
-        <h5>v  see more  v</h5>
-    </a>
-}
+<h3>Team Leader</h3>
+<div class="row">
+    <div class="col-md-4">
+        <div class="module">
+            <a href="Individual?userId=@Model.teamLeader.user_id">
+                <div class="inner_mod">
+                    <h1>@Model.teamLeader.user_first_name @Model.teamLeader.user_last_name</h1>
+                    <h4>Total Hours: <strong>@Model.teamLeader.user_total_hours</strong> / Total Hours: <strong>@Model.teamLeader.user_total_hours</strong> / Total Hours: <strong>@Model.teamLeader.user_total_hours</strong></h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 
 <h3>Team Members</h3>
-@foreach (var member in Model.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList())
-{
-    <a class="module" href="Individual?userId=@member.user_id">
-        <h1>@member.user_first_name @member.user_last_name</h1>
-        <h5>v  see more  v</h5>
-    </a>
-}
+<div class="row">
+    @foreach (var member in Model.teamMembers)
+    {
+        <div class="col-md-4">
+            <div class="module">
+                <a href="Individual?userId=@member.user_id">
+                    <div class="inner_mod">
+                        <h1>@member.user_first_name @member.user_last_name</h1>
+                        <h4>Total Hours: <strong>@member.user_total_hours</strong> / Total Hours: <strong>@member.user_total_hours</strong> / Total Hours: <strong>@member.user_total_hours</strong></h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>

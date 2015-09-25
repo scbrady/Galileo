@@ -10,12 +10,10 @@
 
 @foreach (var comment in Model.comments)
 {
-    <ul>
-        <li>@comment.commenter_id</li>
-        <li>@comment.recipient_id</li>
-        <li>@comment.comment_text</li>
-        <li>@comment.created_at</li>
-    </ul>
+    <div class="comment">
+        <h4><strong>To:</strong> @comment.recipient_id / <strong>From:</strong> @comment.commenter_id / <strong>At:</strong> @comment.created_at</h4>
+        <p>@comment.comment_text</p>
+    </div>
 }
 
 @using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { id = "comment-form" }))

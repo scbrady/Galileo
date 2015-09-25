@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/Content/favicon.ico" />
+        <title>Home Page - My ASP.NET Application</title>
+        <link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/site.css" rel="stylesheet"/>
+
+        <script src="/Scripts/modernizr-2.6.2.js"></script>
+
+        
+    <link href="/Content/selectize.css" rel="stylesheet"/>
+
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default fixed" role="navigation">
+            <div id="nav-color"></div>
+            <img src="/Content/Images/circle_logo.png" class="center-block logo-img" />
+            <a class="navbar-brand" href="#"><strong>Mike  Geary</strong></a>
+
+            <div class="nav nav-tabs nav-stacked nav-items">
+                <ul class="nav navbar-nav">
+                        <li><a href="/Team"><span class="glyphicon glyphicon-cog"></span>&nbsp&nbspTeams</a></li>
+                    <li><a href="/Report"><span class="glyphicon glyphicon-file"></span>&nbsp&nbspReporting</a></li>
+                    <li><a href="/Comment"><span class="glyphicon glyphicon-comment"></span>&nbsp&nbspComments</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            
+
+
+
+    <div class="comment">
+        <h4><strong>To:</strong> 121667 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:47:56 PM</h4>
+        <p>Every student gets an A!</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121762 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:47:56 PM</h4>
+        <p>Every student gets an A!</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121508 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:47:56 PM</h4>
+        <p>Every student gets an A!</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 120425 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:47:56 PM</h4>
+        <p>Every student gets an A!</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 119679 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:47:56 PM</h4>
+        <p>Every student gets an A!</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 119206 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:47:56 PM</h4>
+        <p>Every student gets an A!</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121667 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:54:06 PM</h4>
+        <p>Galileo is better than Archimedes</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121762 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:54:06 PM</h4>
+        <p>Galileo is better than Archimedes</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121508 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:54:06 PM</h4>
+        <p>Galileo is better than Archimedes</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 120425 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:54:06 PM</h4>
+        <p>Galileo is better than Archimedes</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 119679 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:54:06 PM</h4>
+        <p>Galileo is better than Archimedes</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 119206 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/23/2015 8:54:06 PM</h4>
+        <p>Galileo is better than Archimedes</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121508 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/24/2015 6:52:14 PM</h4>
+        <p>This one has a 18.4% chance of working</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 120425 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/24/2015 6:52:14 PM</h4>
+        <p>This one has a 18.4% chance of working</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 119206 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/24/2015 6:52:14 PM</h4>
+        <p>This one has a 18.4% chance of working</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121762 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/24/2015 6:52:14 PM</h4>
+        <p>This one has a 18.4% chance of working</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 119679 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/24/2015 6:52:14 PM</h4>
+        <p>This one has a 18.4% chance of working</p>
+    </div>
+    <div class="comment">
+        <h4><strong>To:</strong> 121667 / <strong>From:</strong> mgeary / <strong>At:</strong> 9/24/2015 6:52:14 PM</h4>
+        <p>This one has a 18.4% chance of working</p>
+    </div>
+
+<form action="/Comment/Create" id="comment-form" method="post"><input name="__RequestVerificationToken" type="hidden" value="3FgyETkKyAfWMkAui7hC2IZTsbsHeK7iESWzIu9KXMiFI-ArcIln6-JztsyB1idyzeaaLwrqb651PNAyDrNkHPFrLx3ENzkrxIxn3eWzNbHABK46iBRXHEjohN7dBz4N0" /><input id="commenter_id" name="commenter_id" type="hidden" value="mgeary" /><label for="recipients">To:</label><br />
+<input id="recipients" name="recipients" type="text" value="" /><label for="comment">Comment:</label><br />
+<textarea cols="20" id="comment" name="comment" rows="2">
+</textarea><br />
+    <input type="submit" value="Submit">
+</form>
+
+        </div>
+        <script src="/Scripts/jquery-1.10.2.js"></script>
+
+        <script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+        
+    <script src="/Scripts/selectize.js"></script>
+
+
+    <script>
+		$(function() {
+		    $('#recipients').selectize({
+                delimeter: ',',
+                persist: false,
+                maxOptions: 5,
+                closeAfterSelect: true,
+		        valueField: 'user_id',
+		        labelField: 'user_first_name',
+		        searchField: ['user_first_name', 'user_first_name', 'user_id'],
+		        preload: true,
+		        render: {
+		            item: function (item, escape) {
+		                return '<div>' +
+                            (item.user_first_name ? '<span class="selectize-user-name">' + escape(item.user_first_name) + ' ' + escape(item.user_last_name) + '</span>' : '') +
+                            (item.user_id ? '<span class="selectize-user-id">&lt;' + escape(item.user_id) + '&gt;</span>' : '') +
+                        '</div>';
+		            },
+		            option: function (item, escape) {
+		                var label = item.user_first_name + ' ' + item.user_last_name;
+		                var caption = item.user_id;
+		                return '<div>' +
+                            '<span class="selectize-label">' + escape(label) + '</span>' +
+                            '<span class="selectize-caption">' + escape(caption) + '</span>' +
+                        '</div>';
+		            }
+		        },
+		        load: function (query, callback) {
+		            if (!query.length) return callback();
+
+		            $.ajax({
+		                url: '/Comment/Users',
+		                dataType: 'json',
+		                success: function (data) {
+		                    callback(data);
+		                }
+		            });
+		        }
+		    });
+		});
+    </script>
+
+    
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome","requestId":"92629904dd204b22b64b212e402551e4"}
+</script>
+<script type="text/javascript" src="http://localhost:51866/d26dace8263b4346b1436d40f8060fff/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

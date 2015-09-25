@@ -53,7 +53,8 @@ namespace Galileo.Controllers
 
             var viewModel = new CourseProjectsAndUsers()
             {
-                projects = projects,
+                projects = projects.Where(p => p.project_is_team == false).ToList(),
+                teamsView = projects.Where(p => p.project_is_team == true).ToList(),
                 users = members
             };
             return View(viewModel);
@@ -82,7 +83,15 @@ namespace Galileo.Controllers
         {
             DatabaseRepository db = new DatabaseRepository();
             List<User> members = db.GetUsersInTeam(teamId);
-            return View(members);
+
+            TeamMembers teamMembers = new TeamMembers
+            {
+                projectManager = members.Where(u => u.user_is_project_manager == true).First(),
+                teamLeader = members.Where(u => u.user_is_team_leader == true).First(),
+                teamMembers = members.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList()
+            };
+
+            return View(teamMembers);
         }
 
         /// <summary>
