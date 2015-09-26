@@ -82,18 +82,12 @@ html,body {
                      border-bottom 0.3s ease-in,
                      color 0.3s ease-in;
 }
-.comment:hover {
-   background-color: #d8deeb;
-   border:           2px solid #94a5b8;
-   border-bottom:    6px solid #94a5b8;
-}
 .comment p {
    margin-top:       6px;
 }
 .comment h4 {
-   padding-top:      3px;
    margin-bottom:    0;
-   border-bottom:    1px solid #5f5f5f;
+   margin-top:       4px;
    letter-spacing:   .1em;
    font-weight:      normal;
    font-size:        1em;
@@ -101,6 +95,10 @@ html,body {
    text-shadow:      0px 0px #3d3d3d;
    transition:       color 0.3s ease-in,
                      text-shadow 0.3s ease-in;
+}
+.comment-from {
+   border-bottom:    1px solid #5f5f5f;
+   margin-bottom:    5px;
 }
 #nav-color {
    background-color: #dc6540;
@@ -113,7 +111,7 @@ html,body {
 }
 .navbar
 {
-	max-width:        225px;
+	width:            205px;
    position:         fixed;
    top:              0;
    left:             0;
@@ -127,6 +125,7 @@ html,body {
 }
 .navbar-brand {
    width:            100%;
+   padding:          15px 0 15px;
    text-align:       center;
 }
 .navbar-nav {
@@ -160,5 +159,117 @@ html,body {
    right:            auto;
 }
 .navbar-collapse .navbar-nav.navbar-right:last-child {
-    margin-right:    0;
+   margin-right:    0;
+}
+.press {
+   width:100%;
+   text-align:center;
+}
+.press button {
+  color: #fff;
+  font-weight:bold;
+  text-align:center;
+  margin:8px;
+  padding:7px 20px 7px 20px;
+  background-color: #dc6540;
+  border: none;
+  text-shadow:0px 1px #2f2f2f;
+  border:2px solid #ab4a2c;
+  box-shadow: 0 4px #ab4a2c;
+  transition:background-color 0.3s ease-in;
+}
+
+.press button:hover,
+.press button.hover {
+  background-color: #CA5F3E;
+}
+
+.press button:active,
+.press button.active {
+  background-color: #dc6540;
+  box-shadow: 0 3px #ab4a2c;
+  transform: translateY(5px);
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input {
+   width:100%;
+}
+textarea {
+   width:100%;
+   min-height:150px;
+}
+.make-comment {
+   text-align:       center;
+   height:           60px;
+   width:            60px;
+   position:         fixed;
+   background-color: #dc6540;
+   bottom:           0px; 
+   right:            0px;
+   transition:       width 0.3s ease-in;
+   z-index:9999;
+}
+.white-glyph {
+   color:            white;
+   font-size:        1.7em;
+   position:         absolute;
+   width:            100%;
+   top:              50%;
+   transform:        translatey(-50%);
+}
+em {
+   margin-top:-10px;
+   color:#909090;
+}
+.chat{
+    background-color: #e6e6e6;  
+    border:2px solid  #9a9a9a;
+    border-bottom:    6px solid #9a9a9a;    
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+    z-index:999;
+}
+
+.chat::before {
+    background-color: #e6e6e6;     
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 11px;
+    transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+    width:  20px;
+    z-index:1;
+}
+.sent {
+    float: left;   
+    margin: 5px 45px 5px 20px;         
+}
+
+.sent::before {
+    left: -12px; 
+        border-left:2px solid  #9a9a9a;
+        border-bottom:2px solid  #9a9a9a;
+}
+
+.received {
+    float: right;    
+    margin: 5px 20px 5px 45px;         
+}
+
+.received::before {
+    right: -12px;   
+        border-right:2px solid  #9a9a9a;
+        border-top:2px solid  #9a9a9a;  
 }
