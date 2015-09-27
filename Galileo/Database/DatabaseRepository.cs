@@ -274,10 +274,35 @@ SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public List<Comment> GetComments (string userId)
         {
-            string sql = @"
-select c.id, comment_text, commenter_id, created_at, recipient_id from [SEI_Galileo].[dbo].[COMMENT] c
-join [SEI_Galileo].[dbo].[RECIPIENTS] r on c.id = r.comment_id
-where r.recipient_id = @userId or commenter_id = @userId";
+            string sql = @"SELECT 
+  commenter.id
+, commenter.created_at
+, commenter.comment_text
+, commenter.commenter_id
+, commenter.commenter_first_name
+, commenter.commenter_last_name
+, recipient.recipient_id
+, recipient.recipient_first_name
+, recipient.recipient_last_name
+
+ FROM
+(select id, comment_text, commenter_id, created_at, u.user_first_name as commenter_first_name, 
+	u.user_last_name as commenter_last_name
+from [SEI_Galileo].[dbo].[COMMENT] c join
+	 [SEI_TimeMachine2].[dbo].[USER] u on c.commenter_id = u.user_id) AS commenter
+
+JOIN
+
+(select comment_id, recipient_id, u.user_first_name as recipient_first_name, 
+	u.user_last_name as recipient_last_name
+	from [SEI_Galileo].[dbo].[RECIPIENTS] r
+	join
+	 [SEI_TimeMachine2].[dbo].[USER] u on r.recipient_id = u.user_id) AS recipient
+
+on commenter.id = recipient.comment_id 
+
+where commenter_id = @userId or recipient_id = @userId";
+            
 
             using (var connection = new SqlConnection(_connectionString))
             {
