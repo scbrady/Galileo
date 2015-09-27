@@ -10,6 +10,13 @@
 
 @foreach (var comment in Model.comments)
 {
+    <div class="comment chat sent">
+        <h4><strong>To:</strong> Firstname Lastname</h4>
+        <h4 class="comment-from"><strong>From:</strong> Firstname Lastname</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed neque eu ligula dictum interdum id ut nulla. Proin elementum ut dolor eu cursus. Sed laoreet ex bibendum, eleifend odio et, interdum est. Duis porta elit a lacus ultricies, ac convallis tortor tempor. In facilisis tortor sit amet diam maximus porta. Nulla finibus magna ac risus pellentesque vestibulum. Quisque vel imperdiet mauris, vestibulum ultricies quam. Nullam sed elit odio.</p>
+        <em class="pull-right"><strong>sent at:</strong> 12:00am mm-dd-yy</em>
+    </div>
+
     <div class="comment">
         <h4><strong>To:</strong> @comment.recipient_id / <strong>From:</strong> @comment.commenter_id / <strong>At:</strong> @comment.created_at</h4>
         <p>@comment.comment_text</p>
