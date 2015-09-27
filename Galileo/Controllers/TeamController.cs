@@ -4,6 +4,7 @@ using Galileo.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Linq;
+using AutoMapper;
 
 namespace Galileo.Controllers
 {
@@ -18,7 +19,8 @@ namespace Galileo.Controllers
             DatabaseRepository db = new DatabaseRepository();
             User user = GlobalVariables.CurrentUser;
             List<Course> courses = db.GetCourses(user.user_id);
-            return View(courses);
+            List<Module> viewModel = Mapper.Map<List<Course>, List<Module>>(courses);
+            return View(viewModel);
         }
 
         /// <summary>

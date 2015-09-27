@@ -1,21 +1,7 @@
-﻿@model List<Galileo.Models.Course>
+﻿@model List<Galileo.ViewModels.Module>
 
-@{
-    ViewBag.Title = "Home Page";
-}
-
-<div class="row">
-    @for (int index = 0; index < Model.Count; index++)
-    {
-        <div class="col-md-4">
-            <div class="module">
-                <a href="~/Team/Teams?courseId=@Model[index].course_id">
-                    <div class="inner_mod">
-                        <h1>@Model[index].course_name</h1>
-                        <h4>Total Hours: <strong>@Model[index].course_total_hours</strong> / Total Hours: <strong>@Model[index].course_total_hours</strong> / Total Hours: <strong>@Model[index].course_total_hours</strong></h4>
-                    </div>
-                </a>
-            </div>
-        </div>
+    @{
+        ViewBag.Title = "Home Page";
     }
-</div>
+
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model, new ViewDataDictionary { { "Link", "~/Team/Teams?courseId=" } })

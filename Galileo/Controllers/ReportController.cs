@@ -56,7 +56,7 @@ namespace Galileo.Controllers
             var viewModel = new CourseProjectsAndUsers()
             {
                 projects = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == false).ToList()),
-                teamsView = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == true).ToList()),
+                teams = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == true).ToList()),
                 users = Mapper.Map<List<User>, List<Module>>(members)
             };
             return View(viewModel);

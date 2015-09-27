@@ -15,7 +15,8 @@ namespace Galileo
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquerysort").Include(
-                        "~/Scripts/jquery.sortable*"));
+                        "~/Scripts/jquery.sortable*",
+                        "~/Scripts/dragdrop.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/selectize").Include(
                         "~/Scripts/selectize*"));

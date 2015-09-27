@@ -9,7 +9,7 @@ namespace Galileo.ViewModels
     public class CourseProjectsAndUsers
     {
         public List<Module> projects { get; set; }
-        public List<Module> teamsView { get; set; }
+        public List<Module> teams { get; set; }
         public List<Module> users { get; set; }
     }
 }
