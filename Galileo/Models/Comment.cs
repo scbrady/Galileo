@@ -15,5 +15,6 @@ namespace Galileo.Models
         public string commenter_last_name { get; set; }
         public DateTime created_at { get; set; }
         public string comment_text { get; set; }
+        public bool user_is_commenter { get; set; }
     }
 }
