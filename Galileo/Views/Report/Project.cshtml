@@ -1,22 +1,8 @@
-﻿@model List<Galileo.Models.User>
+﻿@model List<Galileo.ViewModels.Module>
 
 @{
     ViewBag.Title = "Project Page";
 }
 
 <h3>Users</h3>
-<div class="row">
-    @for (int index = 0; index < Model.Count; index++)
-    {
-        <div class="col-md-4">
-            <div class="module">
-                <a href="Individual?userId=@Model[index].user_id">
-                    <div class="inner_mod">
-                        <h1>@Model[index].user_first_name @Model[index].user_last_name</h1>
-                        <h4>Total Hours: <strong>@Model[index].user_total_hours</strong> / Total Hours: <strong>@Model[index].user_total_hours</strong> / Total Hours: <strong>@Model[index].user_total_hours</strong></h4>
-                    </div>
-                </a>
-            </div>
-        </div>
-    }
-</div>
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model, new ViewDataDictionary { { "Link", "Individual?userId=" } })

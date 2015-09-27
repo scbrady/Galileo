@@ -32,7 +32,7 @@ namespace Galileo.Controllers
             List<Project> projects = db.GetProjects(courseId);
             List<User> members = db.GetUsersInCourse(courseId);
 
-            var viewModel = new CourseProjectsAndUsers()
+            var viewModel = new TeamsProjectsAndUsers()
             {
                 projects = projects,
                 users = members
@@ -47,7 +47,7 @@ namespace Galileo.Controllers
         /// <returns>Sends user to Index page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CourseProjectsAndUsers course)
+        public ActionResult Create(TeamsProjectsAndUsers course)
         {
             DatabaseRepository db = new DatabaseRepository();
 

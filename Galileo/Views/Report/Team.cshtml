@@ -7,47 +7,11 @@
 @if (Model.projectManager != null)
 {
     <h3>Project Manager</h3>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="module">
-                <a href="Individual?userId=@Model.projectManager.user_id">
-                    <div class="inner_mod">
-                        <h1>@Model.projectManager.user_first_name @Model.projectManager.user_last_name</h1>
-                        <h4>Total Hours: <strong>@Model.projectManager.user_total_hours</strong> / Total Hours: <strong>@Model.projectManager.user_total_hours</strong> / Total Hours: <strong>@Model.projectManager.user_total_hours</strong></h4>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.projectManager, new ViewDataDictionary { { "Link", "Individual?userId=" } })
 }
 
 <h3>Team Leader</h3>
-<div class="row">
-    <div class="col-md-4">
-        <div class="module">
-            <a href="Individual?userId=@Model.teamLeader.user_id">
-                <div class="inner_mod">
-                    <h1>@Model.teamLeader.user_first_name @Model.teamLeader.user_last_name</h1>
-                    <h4>Total Hours: <strong>@Model.teamLeader.user_total_hours</strong> / Total Hours: <strong>@Model.teamLeader.user_total_hours</strong> / Total Hours: <strong>@Model.teamLeader.user_total_hours</strong></h4>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model.teamLeader, new ViewDataDictionary { { "Link", "Individual?userId=" } })
 
 <h3>Team Members</h3>
-<div class="row">
-    @foreach (var member in Model.teamMembers)
-    {
-        <div class="col-md-4">
-            <div class="module">
-                <a href="Individual?userId=@member.user_id">
-                    <div class="inner_mod">
-                        <h1>@member.user_first_name @member.user_last_name</h1>
-                        <h4>Total Hours: <strong>@member.user_total_hours</strong> / Total Hours: <strong>@member.user_total_hours</strong> / Total Hours: <strong>@member.user_total_hours</strong></h4>
-                    </div>
-                </a>
-            </div>
-        </div>
-    }
-</div>
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model.teamMembers, new ViewDataDictionary { { "Link", "Individual?userId=" } })

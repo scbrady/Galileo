@@ -1,4 +1,5 @@
-﻿using Galileo.Database;
+﻿using AutoMapper;
+using Galileo.Database;
 using Galileo.Models;
 using Galileo.ViewModels;
 using System;
@@ -37,7 +38,8 @@ namespace Galileo.Controllers
             DatabaseRepository db = new DatabaseRepository();
             User user = GlobalVariables.CurrentUser;
             List<Course> courses = db.GetCourses(user.user_id);
-            return View(courses);
+            List<Module> viewModel = Mapper.Map<List<Course>, List<Module>>(courses);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -53,9 +55,9 @@ namespace Galileo.Controllers
 
             var viewModel = new CourseProjectsAndUsers()
             {
-                projects = projects.Where(p => p.project_is_team == false).ToList(),
-                teamsView = projects.Where(p => p.project_is_team == true).ToList(),
-                users = members
+                projects = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == false).ToList()),
+                teamsView = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == true).ToList()),
+                users = Mapper.Map<List<User>, List<Module>>(members)
             };
             return View(viewModel);
         }
@@ -70,7 +72,8 @@ namespace Galileo.Controllers
         {
             DatabaseRepository db = new DatabaseRepository();
             List<User> members = db.GetUsersInProject(projectId);
-            return View(members);
+            List<Module> viewModel = Mapper.Map<List<User>, List<Module>>(members);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -86,9 +89,9 @@ namespace Galileo.Controllers
 
             TeamMembers teamMembers = new TeamMembers
             {
-                projectManager = members.Where(u => u.user_is_project_manager == true).First(),
-                teamLeader = members.Where(u => u.user_is_team_leader == true).First(),
-                teamMembers = members.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList()
+                projectManager = Mapper.Map<User, Module>(members.Where(u => u.user_is_project_manager == true).First()),
+                teamLeader = Mapper.Map<User, Module>(members.Where(u => u.user_is_team_leader == true).First()),
+                teamMembers = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList())
             };
 
             return View(teamMembers);
