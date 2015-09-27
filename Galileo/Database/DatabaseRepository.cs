@@ -274,8 +274,7 @@ SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public List<Comment> GetComments (string userId)
         {
-            string sql = @"SELECT 
-  commenter.id
+            string sql = @"SELECT commenter.id
 , commenter.created_at
 , commenter.comment_text
 , commenter.commenter_id
@@ -284,6 +283,10 @@ SELECT CAST(SCOPE_IDENTITY() as int)";
 , recipient.recipient_id
 , recipient.recipient_first_name
 , recipient.recipient_last_name
+, CASE WHEN commenter_id =  @userId
+	Then 1
+	Else 0
+  END AS user_is_commenter
 
  FROM
 (select id, comment_text, commenter_id, created_at, u.user_first_name as commenter_first_name, 
@@ -303,7 +306,6 @@ on commenter.id = recipient.comment_id
 
 where commenter_id = @userId or recipient_id = @userId";
             
-
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
