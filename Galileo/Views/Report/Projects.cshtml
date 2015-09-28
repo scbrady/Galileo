@@ -4,8 +4,11 @@
     ViewBag.Title = "Project Page";
 }
 
-<h3>Projects</h3>
-@Html.Partial("~/Views/Shared/_Modules.cshtml", Model.projects, new ViewDataDictionary { { "Link", "Project?projectId=" } })
+@if (Model.projects.Any())
+{
+   <h3>Projects</h3>
+   @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.projects, new ViewDataDictionary { { "Link", "Project?projectId=" } })
+}
 
 @if (Model.teams.Any())
 {
@@ -13,5 +16,8 @@
    @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.teams, new ViewDataDictionary { { "Link", "Team?teamId=" } })
 }
 
-<h3>Users</h3>
-@Html.Partial("~/Views/Shared/_Modules.cshtml", Model.users, new ViewDataDictionary { { "Link", "Individual?userId=" } })
+@if (Model.users.Any())
+{
+   <h3>Users</h3>
+   @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.users, new ViewDataDictionary { { "Link", "Individual?userId=" } })
+}
