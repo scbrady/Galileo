@@ -31,8 +31,16 @@ namespace Galileo.Database
 
         public List<Course> GetCourses(string userId)
         {
-            string sql = @"
-SELECT c.*, sum(e.entry_total_time)/60 as course_total_hours
+            string sql = @"SELECT c.*, sum(e.entry_total_time)/60 as course_total_hours,
+	CASE when datediff(day, c.course_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, c.course_end_date)
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, getdate())
+	END AS hours_per_day,
+	CASE when datediff(day, c.course_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, c.course_end_date) * 7
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, getdate()) * 7
+	END AS hours_per_week,
+	datediff(DAY, c.course_begin_date, c.course_end_date) as days_in_semester
 FROM [COURSE] c
 JOIN [MEMBER] m ON m.member_course_id = c.course_id
 JOIN [PROJECT] p ON p.project_course_id = c.course_id
@@ -41,7 +49,6 @@ LEFT JOIN [ENTRY] e ON e.entry_project_id = p.project_id
 WHERE u.user_id = @userId
 AND   UPPER(m.member_position) = UPPER('Teacher')
 GROUP BY c.course_id, c.course_name, c.course_submit_day, c.course_date_created, c.course_begin_date, c.course_end_date, c.course_is_enabled, c.course_ref_grade, c.course_ref_hours;";
-
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -52,18 +59,25 @@ GROUP BY c.course_id, c.course_name, c.course_submit_day, c.course_date_created,
 
         public List<Project> GetProjects(int course_id)
         {
-            string sql = @"
-select p.*, sum(e.entry_total_time)/60 as project_total_hours,
+            string sql = @"select p.*, sum(e.entry_total_time)/60 as project_total_hours,
 CASE WHEN EXISTS(SELECT * 
                  FROM [SEI_Galileo].[dbo].[ROLE] AS r
                  WHERE p.project_id = r.team_id) 
              THEN 1
              ELSE 0
-       END AS project_is_team
+       END AS project_is_team,
+    CASE when datediff(day, p.project_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, p.project_end_date)
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, getdate())
+	END AS hours_per_day,
+	CASE when datediff(day, p.project_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, p.project_end_date) * 7
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, getdate()) * 7
+	END AS hours_per_week
 from PROJECT p
 JOIN [ENTRY] e ON e.entry_project_id = p.project_id
 where p.project_course_id = @course_id
-group by p.project_begin_date, p.project_course_id, p.project_created_by, p.project_date_created, p.project_description, p.project_end_date, p.project_id, p.project_id, p.project_is_enabled, p.project_name";
+group by p.project_begin_date, p.project_course_id, p.project_created_by, p.project_date_created, p.project_description, p.project_end_date, p.project_id, p.project_id, p.project_is_enabled, p.project_name;";
 
             using (var connection = new SqlConnection(_connectionString))
             {

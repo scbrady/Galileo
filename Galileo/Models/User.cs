@@ -12,5 +12,7 @@
         public bool user_is_team_leader { get; set; }
         public bool user_is_project_manager { get; set; }
         public int user_total_hours { get; set; }
+        public int hours_per_day { get; set; }
+        public int hours_per_week { get; set; }
     }
 }
