@@ -187,7 +187,7 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
             var values = new List<string>();
 
             foreach (int projectId in projectIds)
-                values.Add("(" + userId + ", " + projectId + ", 'PROJECT_MANAGER')");
+                values.Add("(" + userId + ", " + projectId + ", 3)");
 
             if (values.Any())
             {
@@ -214,9 +214,9 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
                     for (int userIndex = 0; userIndex < userIds.Length; userIndex++)
                     {
                         if (userIndex == 0)
-                            values.Add("(" + userIds[userIndex] + ", " + team.projectId + ", 'TEAM_LEADER')");
+                            values.Add("(" + userIds[userIndex] + ", " + team.projectId + ", 2)");
                         else
-                            values.Add("(" + userIds[userIndex] + ", " + team.projectId + ", 'MEMBER')");
+                            values.Add("(" + userIds[userIndex] + ", " + team.projectId + ", 1)");
                     }
                 }
             }

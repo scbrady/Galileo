@@ -21,8 +21,8 @@
         sent = "received";
     }
     <div class="comment chat @sent">
-        <h4><strong>To:</strong> @comment.recipient_first_name @comment.recipient_last_name</h4>
-        <h4 class="comment-from"><strong>From:</strong> @comment.commenter_first_name @comment.commenter_last_name</h4>
+        <h4><strong>To:</strong> @comment.recipients</h4>
+        <h4 class="comment-from"><strong>From:</strong> @comment.commenter</h4>
         <p>@comment.comment_text</p>
         <em class="pull-right"><strong>sent at:</strong> @comment.created_at</em>
     </div>
