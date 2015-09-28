@@ -7,9 +7,12 @@ namespace Galileo.Models
 {
     public class Comment
     {
+        public int id { get; set; }
+        public string recipients { get; set; }
         public string recipient_id { get; set; }
         public string recipient_first_name { get; set; }
         public string recipient_last_name { get; set; }
+        public string commenter { get; set; }
         public string commenter_id { get; set; }
         public string commenter_first_name { get; set; }
         public string commenter_last_name { get; set; }

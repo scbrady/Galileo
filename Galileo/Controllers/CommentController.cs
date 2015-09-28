@@ -1,8 +1,9 @@
-﻿﻿using Galileo.Models;
+﻿using Galileo.Models;
 using Galileo.ViewModels;
-﻿using Galileo.Database;
+using Galileo.Database;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Galileo.Controllers
 {
@@ -14,10 +15,19 @@ namespace Galileo.Controllers
             DatabaseRepository db = new DatabaseRepository();
             // Show all comments stored for the particular user
             // Should show all comments received and given
-            var comments = db.GetComments(user.user_id);
+            List<Comment> comments = db.GetComments(user.user_id);
+            var groupedComments = comments.GroupBy(c => c.id).Select(c => new Comment
+            {
+                recipients = string.Join(", ", c.Select(comment => comment.recipient_first_name + ' ' + comment.recipient_last_name)),
+                commenter = c.Select(comment => comment.commenter_first_name + ' ' + comment.commenter_last_name).First(),
+                comment_text = c.Select(comment => comment.comment_text).First(),
+                user_is_commenter = c.Select(comment => comment.user_is_commenter).First(),
+                created_at = c.Select(comment => comment.created_at).First()
+            }).ToList();
+
             var commentViewModel = new Comments
             {
-                comments = comments,
+                comments = groupedComments,
                 commenter_id = user.user_id
             };
 
