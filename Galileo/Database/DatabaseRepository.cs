@@ -89,12 +89,22 @@ group by p.project_begin_date, p.project_course_id, p.project_created_by, p.proj
 
         public List<User> GetUsersInCourse(int course_id)
         {
-            string sql = @"
-SELECT e.entry_user_id as user_id, u.user_first_name, u.user_last_name, sum(e.entry_total_time)/60 as user_total_hours from [USER] u
+            string sql = @"SELECT u.user_id, u.user_first_name, u.user_last_name, sum(e.entry_total_time)/60 as user_total_hours,
+CASE when datediff(day, c.course_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, c.course_end_date)
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, getdate())
+	END AS hours_per_day,
+CASE when datediff(day, c.course_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, c.course_end_date) * 7
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, c.course_begin_date, getdate()) * 7
+	END AS hours_per_week
+from [USER] u
 join ENTRY e on e.entry_user_id = u.user_id
 join PROJECT p on e.entry_project_id = p.project_id
-where p.project_course_id = @course_id 
-group by u.user_first_name, u.user_last_name, e.entry_user_id";
+JOIN COURSE c on c.course_id = p.project_course_id
+where c.course_id = @course_id
+group by u.user_id, u.user_first_name, u.user_last_name, c.course_begin_date, c.course_end_date
+order by user_id";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -106,13 +116,20 @@ group by u.user_first_name, u.user_last_name, e.entry_user_id";
 
         public List<User> GetUsersInProject(int projectId)
         {
-            string sql = @"
-SELECT user_id, user_first_name, user_last_name, SUM(entry_total_time)/60 as user_total_hours
-FROM [SEI_TimeMachine2].[dbo].[USER]
-join [SEI_TimeMachine2].[dbo].[entry] on user_id = entry_user_id
-join [SEI_TimeMachine2].[dbo].[project] on project_id = entry_project_id
+            string sql = @"SELECT user_id, user_first_name, user_last_name, SUM(entry_total_time)/60 as user_total_hours,
+    CASE when datediff(day, p.project_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, p.project_end_date)
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, getdate())
+	END AS hours_per_day,
+	CASE when datediff(day, p.project_end_date, GETDATE()) > 0
+	THEN sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, p.project_end_date) * 7
+	ELSE sum(e.entry_total_time)/60 / datediff(DAY, p.project_begin_date, getdate()) * 7
+	END AS hours_per_week
+FROM [SEI_TimeMachine2].[dbo].[USER] u
+join [SEI_TimeMachine2].[dbo].[entry] e on user_id = entry_user_id
+join [SEI_TimeMachine2].[dbo].[project] p on project_id = entry_project_id
 where project_id = @projectId
-group by user_id, user_first_name, user_last_name
+group by user_id, user_first_name, user_last_name, p.project_begin_date, p.project_end_date
 order by user_total_hours";
 
             using (var connection = new SqlConnection(_connectionString))

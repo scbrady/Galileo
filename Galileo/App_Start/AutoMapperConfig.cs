@@ -25,8 +25,8 @@ namespace Galileo
                 .ForMember(dest => dest.name, opts => opts.MapFrom(src => src.user_first_name + " " + src.user_last_name))
                 .ForMember(dest => dest.id, opts => opts.MapFrom(src => src.user_id))
                 .ForMember(dest => dest.total_hours, opts => opts.MapFrom(src => src.user_total_hours))
-                .ForMember(dest => dest.hours_per_day, opts => opts.MapFrom(src => src.user_total_hours))
-                .ForMember(dest => dest.hours_per_week, opts => opts.MapFrom(src => src.user_total_hours));
+                .ForMember(dest => dest.hours_per_day, opts => opts.MapFrom(src => src.hours_per_day))
+                .ForMember(dest => dest.hours_per_week, opts => opts.MapFrom(src => src.hours_per_week));
         }
     }
 }
