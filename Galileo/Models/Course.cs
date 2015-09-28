@@ -17,5 +17,8 @@ namespace Galileo.Models
         public double course_ref_grade { get; set; }
         public double course_ref_hours { get; set; }
         public int course_total_hours { get; set; }
+        public int hours_per_day { get; set; }
+        public int hours_per_week { get; set; }
+        public int days_in_semester {get; set; }
     }
 }
