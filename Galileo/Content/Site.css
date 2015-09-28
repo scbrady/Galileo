@@ -211,7 +211,7 @@ html,body {
    width:100%;
    text-align:center;
 }
-.press button {
+.press input {
   color: #fff;
   font-weight:bold;
   text-align:center;
@@ -225,13 +225,13 @@ html,body {
   transition:background-color 0.3s ease-in;
 }
 
-.press button:hover,
-.press button.hover {
+.press input:hover,
+.press input.hover {
   background-color: #CA5F3E;
 }
 
-.press button:active,
-.press button.active {
+.press input:active,
+.press input.active {
   background-color: #dc6540;
   box-shadow: 0 3px #ab4a2c;
   transform: translateY(5px);

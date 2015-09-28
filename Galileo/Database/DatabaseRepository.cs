@@ -238,17 +238,17 @@ order by entry_user_id";
             }
         }
 
-        public int CreateComment (string commenter_id, string comment)
+        public int CreateComment (string commenter_id, string comment, bool hidden)
         {
             DateTime timestamp = DateTime.Now;
             string sql = @"
-INSERT INTO [SEI_Galileo].[dbo].[COMMENT] (commenter_id, comment_text, created_at) VALUES (@commenter_id, @comment, @timestamp);
+INSERT INTO [SEI_Galileo].[dbo].[COMMENT] (commenter_id, comment_text, hidden, created_at) VALUES (@commenter_id, @comment, @hidden, @timestamp);
 SELECT CAST(SCOPE_IDENTITY() as int)";
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                var id = connection.Query<int>(sql, new { commenter_id, comment, timestamp }).Single();
+                var id = connection.Query<int>(sql, new { commenter_id, comment, hidden, timestamp }).Single();
                 return id;
             }
         }
@@ -277,6 +277,7 @@ SELECT CAST(SCOPE_IDENTITY() as int)";
             string sql = @"SELECT commenter.id
 , commenter.created_at
 , commenter.comment_text
+, commenter.hidden
 , commenter.commenter_id
 , commenter.commenter_first_name
 , commenter.commenter_last_name
@@ -289,7 +290,7 @@ SELECT CAST(SCOPE_IDENTITY() as int)";
   END AS user_is_commenter
 
  FROM
-(select id, comment_text, commenter_id, created_at, u.user_first_name as commenter_first_name, 
+(select id, comment_text, commenter_id, created_at, hidden, u.user_first_name as commenter_first_name, 
 	u.user_last_name as commenter_last_name
 from [SEI_Galileo].[dbo].[COMMENT] c join
 	 [SEI_TimeMachine2].[dbo].[USER] u on c.commenter_id = u.user_id) AS commenter
@@ -304,7 +305,8 @@ JOIN
 
 on commenter.id = recipient.comment_id 
 
-where commenter_id = @userId or recipient_id = @userId";
+where commenter_id = @userId or (recipient_id = @userId and hidden = 0)
+order by created_at desc";
             
             using (var connection = new SqlConnection(_connectionString))
             {

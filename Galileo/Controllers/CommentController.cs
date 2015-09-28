@@ -43,7 +43,7 @@ namespace Galileo.Controllers
 
             if(!string.IsNullOrEmpty(newComment.comment))
             {
-                int commentId = db.CreateComment(newComment.commenter_id, newComment.comment);
+                int commentId = db.CreateComment(newComment.commenter_id, newComment.comment, newComment.hidden);
                 db.LinkComment(commentId, newComment.recipients.Split(','));
             }
 

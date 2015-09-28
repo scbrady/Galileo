@@ -29,26 +29,54 @@
     
 }
 
-@using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { id = "comment-form" }))
-{
-    @Html.AntiForgeryToken()
+ <!-- Modal -->
+<div class="modal fade" id="commentModal" role="dialog">
+    <div class="modal-dialog">
 
-    @Html.HiddenFor(m => m.commenter_id)
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Make a Comment</h4>
+            </div>
 
-    @Html.LabelFor(m => m.recipients)<br />
-    @Html.TextBoxFor(m => m.recipients, new { id = "recipients"});
+            <div class="modal-body">
+                @using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { id = "comment-form" }))
+                {
+                    @Html.AntiForgeryToken()
 
-    @Html.LabelFor(m => m.comment)<br />
-    @Html.TextAreaFor(m => m.comment)<br />
+                    @Html.HiddenFor(m => m.commenter_id)
 
-    <input type="submit" value="Submit">
-}
+                    @Html.LabelFor(m => m.recipients)<br />
+                    @Html.TextBoxFor(m => m.recipients, new { id = "recipients" });
+
+                    @Html.LabelFor(m => m.comment)<br />
+                    @Html.TextAreaFor(m => m.comment)<br />
+
+                    @Html.LabelFor(m => m.hidden)<br />
+                    @Html.CheckBoxFor(m => m.hidden)<br />
+
+                    <section class="press">
+                        <input type="submit" value="Submit">
+                    </section>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<a data-toggle="modal" data-target="#commentModal">
+    <div class="make-comment comment-hover" data-toggle="tooltip" data-placement="left" title="Click to make a comment">
+        <span class="glyphicon glyphicon-comment white-glyph center-block"></span>
+    </div>
+</a>
 
 @section scripts {
     @Scripts.Render("~/bundles/selectize")
 
     <script>
         $(function () {
+            $('.comment-hover').tooltip({ title: "Click to make a comment", delay: { show: 200, hide: 100 } });
+
             $('#recipients').selectize({
                 delimeter: ',',
                 persist: false,
