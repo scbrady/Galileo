@@ -1,17 +1,16 @@
 ﻿@model List<Galileo.ViewModels.Module>
-
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4">
-            <a href="@ViewBag.Link@item.id">
-                <div class="module">
-                    <div class="inner_mod">
-                        <h1>@item.name</h1>
-                        <h4>Total Hours: <strong>@item.total_hours</strong> / Hours Per Day: <strong>@item.hours_per_day</strong> / Hours Per Week: <strong>@item.hours_per_week</strong></h4>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <a href="@ViewBag.Link@item.id">
+                    <div class="module">
+                        <div class="inner_mod">
+                            <h1>@item.name</h1>
+                            <h4>Total Hours: <strong>@item.total_hours</strong> <br /> Hours Per Day: <strong>@item.hours_per_day</strong> <br /> Hours Per Week: <strong>@item.hours_per_week</strong></h4>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-    }
-</div>
+                </a>
+            </div>
+        }
+    </div>
