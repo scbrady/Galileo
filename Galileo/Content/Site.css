@@ -342,12 +342,16 @@ em {
 }
 
 #comment-form {
-    width: 50%;
+    width: 75%;
     margin: auto;
 }
 
-#comment-form textarea{
+#comment-form textarea {
     max-width: 100%;
     width: 100%;
     display: block;
+}
+
+input#hidden {
+    width: auto;
 }

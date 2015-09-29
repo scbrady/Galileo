@@ -10,17 +10,7 @@
 
 @foreach (var comment in Model.comments)
 {
-    string sent;
-
-    if (comment.user_is_commenter)
-    {
-        sent = "sent";
-    }
-    else
-    {
-        sent = "received";
-    }
-    <div class="comment chat @sent">
+    <div class="comment chat @(comment.user_is_commenter ? "sent" : "received") @(comment.hidden ? "hidden" : "")">
         <h4><strong>To:</strong> @comment.recipients</h4>
         <h4 class="comment-from"><strong>From:</strong> @comment.commenter</h4>
         <p>@comment.comment_text</p>
@@ -53,11 +43,11 @@
                     @Html.LabelFor(m => m.comment)<br />
                     @Html.TextAreaFor(m => m.comment)<br />
 
-                    @Html.LabelFor(m => m.hidden)<br />
-                    @Html.CheckBoxFor(m => m.hidden)<br />
+                    @Html.CheckBoxFor(m => m.hidden)
+                    <label for="hidden">Hidden</label><br />
 
                     <section class="press">
-                        <input type="submit" value="Submit">
+                        <input type = "submit" value="Submit">
                     </section>
                 }
             </div>

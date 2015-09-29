@@ -14,7 +14,6 @@ namespace Galileo.ViewModels
         [DisplayName("Comment:")]
         public string comment { get; set; }
 
-        [DisplayName("Hidden:")]
         public bool hidden { get; set; }
         public string commenter_id { get; set; }
     }

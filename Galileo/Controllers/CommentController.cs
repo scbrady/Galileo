@@ -13,16 +13,17 @@ namespace Galileo.Controllers
         {
             User user = GlobalVariables.CurrentUser;
             DatabaseRepository db = new DatabaseRepository();
-            // Show all comments stored for the particular user
-            // Should show all comments received and given
             List<Comment> comments = db.GetComments(user.user_id);
+
+            // Group comments and comma separate the recipients
             var groupedComments = comments.GroupBy(c => c.id).Select(c => new Comment
             {
                 recipients = string.Join(", ", c.Select(comment => comment.recipient_first_name + ' ' + comment.recipient_last_name)),
                 commenter = c.Select(comment => comment.commenter_first_name + ' ' + comment.commenter_last_name).First(),
                 comment_text = c.Select(comment => comment.comment_text).First(),
                 user_is_commenter = c.Select(comment => comment.user_is_commenter).First(),
-                created_at = c.Select(comment => comment.created_at).First()
+                created_at = c.Select(comment => comment.created_at).First(),
+                hidden = c.Select(comment => comment.hidden).First()
             }).ToList();
 
             var commentViewModel = new Comments
