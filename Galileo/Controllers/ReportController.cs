@@ -89,8 +89,8 @@ namespace Galileo.Controllers
 
             TeamMembers teamMembers = new TeamMembers
             {
-                projectManager = Mapper.Map<User, Module>(members.Where(u => u.user_is_project_manager == true).First()),
-                teamLeader = Mapper.Map<User, Module>(members.Where(u => u.user_is_team_leader == true).First()),
+                projectManager = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_project_manager == true).ToList()),
+                teamLeader = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_team_leader == true).ToList()),
                 teamMembers = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList())
             };
 

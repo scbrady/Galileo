@@ -10,7 +10,7 @@
 
 @foreach (var comment in Model.comments)
 {
-    <div class="comment chat @(comment.user_is_commenter ? "sent" : "received") @(comment.hidden ? "hidden" : "")">
+    <div class="comment chat @(comment.user_is_commenter ? "sent" : "received") @(comment.hidden ? "hidden-comment" : "")">
         <h4><strong>To:</strong> @comment.recipients</h4>
         <h4 class="comment-from"><strong>From:</strong> @comment.commenter</h4>
         <p>@comment.comment_text</p>

@@ -144,11 +144,11 @@ order by user_total_hours";
         {
             string sql = @"
     SELECT user_id, r.team_id, user_first_name, user_last_name, ISNULL(SUM(entry_total_time)/60, 0) as user_total_hours,
-		CASE WHEN r.position = 'TEAM_LEADER'
+		CASE WHEN r.position = 2
 		THEN 1
 		ELSE 0
 	END AS user_is_team_leader, 
-		CASE WHEN r.position = 'PROJECT_MANAGER'
+		CASE WHEN r.position = 3
 		THEN 1
 		ELSE 0
 	END AS user_is_project_manager
