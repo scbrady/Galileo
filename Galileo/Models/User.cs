@@ -1,4 +1,6 @@
-﻿namespace Galileo.Models
+﻿using System;
+
+namespace Galileo.Models
 {
     public class User
     {
@@ -11,8 +13,9 @@
         public bool user_is_manager { get; set; }
         public bool user_is_team_leader { get; set; }
         public bool user_is_project_manager { get; set; }
-        public int user_total_hours { get; set; }
-        public int hours_per_day { get; set; }
-        public int hours_per_week { get; set; }
+        public int user_total_time { get; set; }
+        public DateTime user_begin_date { get; set; }
+        public DateTime user_end_date { get; set; }
+        public int project_id { get; set; }
     }
 }

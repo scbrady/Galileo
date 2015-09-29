@@ -33,11 +33,13 @@ namespace Galileo.Controllers
             DatabaseRepository db = new DatabaseRepository();
             List<Project> projects = db.GetProjects(courseId);
             List<User> users = db.GetUsersWithoutTeams(courseId);
+            List<User> members = db.GetUsersWithTeams(courseId);
 
             var viewModel = new TeamsProjectsAndUsers()
             {
                 projects = projects,
-                users = users
+                users = users,
+                members = members
             };
             return View(viewModel);
         }
@@ -60,7 +62,10 @@ namespace Galileo.Controllers
                 db.DeleteAllMembers(allProjectIds);
 
                 if (!string.IsNullOrEmpty(course.projectManager))
-                    db.InsertProjectManager(course.projectManager, populatedProjectIds);
+                {
+                    string projectManagerId = course.projectManager.Split(',').First();
+                    db.InsertProjectManager(projectManagerId, populatedProjectIds);
+                }
 
                 db.InsertTeamMembers(course.teams.ToList());
             }

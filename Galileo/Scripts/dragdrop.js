@@ -14,6 +14,14 @@
         connectWith: '.connected'
     });
 
+    $('.sortable').sortable().bind('sortstart', function (e, ui) {
+        $('#project-manager-list').sortable('disable');
+    });
+
+    $('.sortable').sortable().bind('sortstop', function (e, ui) {
+        //$('#project-manager-list').sortable('enable');
+    });
+
     $('.sortable').sortable().bind('sortupdate', function (e, ui) {
         var start_index = ui.startparent.data('project-index');
         var end_index = ui.endparent.data('project-index');

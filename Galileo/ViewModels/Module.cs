@@ -9,8 +9,8 @@ namespace Galileo.ViewModels
     {
         public string id { get; set; }
         public string name { get; set; }
-        public int total_hours { get; set; }
-        public int hours_per_day { get; set; }
-        public int hours_per_week { get; set; }
+        public float total_hours { get; set; }
+        public float hours_per_day { get; set; }
+        public float hours_per_week { get; set; }
     }
 }
