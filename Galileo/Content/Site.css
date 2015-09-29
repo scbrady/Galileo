@@ -355,3 +355,7 @@ em {
 input#hidden {
     width: auto;
 }
+
+#team-projects {
+    float: left;
+}

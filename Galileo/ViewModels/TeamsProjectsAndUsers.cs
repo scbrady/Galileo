@@ -9,7 +9,6 @@ namespace Galileo.ViewModels
     public class TeamsProjectsAndUsers
     {
         public List<Project> projects { get; set; }
-        public List<Project> teamsView { get; set; }
         public List<User> users { get; set; }
         public string projectManager { get; set; }
         public IEnumerable<Team> teams { get; set; }

@@ -3,29 +3,34 @@
 @{
     ViewBag.Title = "Project Page";
 }
+<div id="team-users">
+    <h3>Users</h3>
+    <ul class="connected sortable list">
+        @foreach (var user in Model.users)
+        {
+            <li id="@user.user_id">@user.user_first_name @user.user_last_name</li>
+        }
+    </ul>
+</div>
 
-<h3>Projects</h3>
-@using (Html.BeginForm("Create", "Team", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <ul data-project-index="projectManager" class="connected sortable list">Project Manager</ul>
-    <input id="hidden_projectManager" type="hidden" name="projectManager" value="" />
-    for (int index = 0; index < Model.projects.Count; index++)
+<div id="team-projects">
+    <h3>Projects</h3>
+    @using (Html.BeginForm("Create", "Team", FormMethod.Post))
     {
-        <ul data-project-index="@index" class="connected sortable list">@Model.projects[index].project_name</ul>
-        <input type="hidden" name="teams[@index].projectId" value="@Model.projects[index].project_id" />
-        <input id="hidden_@index" type="hidden" name="teams[@index].userIds" value="" />
+        @Html.AntiForgeryToken()
+        <ul data-project-index="projectManager" class="connected sortable list">Project Manager</ul>
+        <input id="hidden_projectManager" type="hidden" name="projectManager" value="" />
+        for (int index = 0; index < Model.projects.Count; index++)
+        {
+            <ul data-project-index="@index" class="connected sortable list">@Model.projects[index].project_name</ul>
+            <input type="hidden" name="teams[@index].projectId" value="@Model.projects[index].project_id" />
+            <input id="hidden_@index" type="hidden" name="teams[@index].userIds" value="" />
+        }
+        <input type="submit" value="Submit">
     }
-    <input type="submit" value="Submit">
-}
+</div>
 
-<h3>Users</h3>
-<ul class="connected sortable list">
-    @foreach (var user in Model.users)
-    {
-        <li id="@user.user_id">@user.user_first_name @user.user_last_name</li>
-    }
-</ul>
+
 
 @section scripts {
     @Scripts.Render("~/bundles/jquerysort")

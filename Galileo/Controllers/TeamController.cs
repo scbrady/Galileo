@@ -32,12 +32,12 @@ namespace Galileo.Controllers
         {
             DatabaseRepository db = new DatabaseRepository();
             List<Project> projects = db.GetProjects(courseId);
-            List<User> members = db.GetUsersInCourse(courseId);
+            List<User> users = db.GetUsersWithoutTeams(courseId);
 
             var viewModel = new TeamsProjectsAndUsers()
             {
                 projects = projects,
-                users = members
+                users = users
             };
             return View(viewModel);
         }
@@ -52,13 +52,18 @@ namespace Galileo.Controllers
         public ActionResult Create(TeamsProjectsAndUsers course)
         {
             DatabaseRepository db = new DatabaseRepository();
+            int[] allProjectIds = course.teams.Where(t => t.projectId != 0).Select(t => t.projectId).ToArray();
+            int[] populatedProjectIds = course.teams.Where(t => t.userIds != null && t.projectId != 0).Select(t => t.projectId).ToArray();
 
-            int[] projectIds = course.teams.Where(t => t.userIds != null && t.projectId != 0).Select(t => t.projectId).ToArray();
-            if(!string.IsNullOrEmpty(course.projectManager))
-                db.InsertProjectManager(course.projectManager, projectIds);
+            if (allProjectIds.Any())
+            {
+                db.DeleteAllMembers(allProjectIds);
 
-            db.InsertTeamMembers(course.teams.ToList());
+                if (!string.IsNullOrEmpty(course.projectManager))
+                    db.InsertProjectManager(course.projectManager, populatedProjectIds);
 
+                db.InsertTeamMembers(course.teams.ToList());
+            }
             return RedirectToAction("Index");
         }
     }

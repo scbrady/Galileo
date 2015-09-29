@@ -169,6 +169,26 @@ order by user_total_hours";
             }
         }
 
+        public List<User> GetUsersWithoutTeams(int courseId)
+        {
+            string sql = @"
+SELECT DISTINCT(u.user_id), u.user_first_name, u.user_last_name, ru.student_id
+FROM [USER] u
+JOIN MEMBER m on m.member_user_id = u.user_id
+JOIN COURSE c on c.course_id = m.member_course_id
+JOIN PROJECT p on p.project_course_id = c.course_id
+LEFT JOIN [SEI_Galileo].[dbo].ROLE r on r.team_id = p.project_id
+LEFT JOIN [SEI_Galileo].[dbo].ROLE ru on ru.student_id = u.user_id
+WHERE c.course_id = @courseId AND ru.student_id is NULL AND UPPER(m.member_position) != UPPER('Teacher')";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var users = connection.Query<User>(sql, new { courseId });
+                return users.AsList();
+            }
+        }
+
         public List<User> GetAllUsers()
         {
             string sql = @"select USER_ID, user_first_name, user_last_name from [user]";
@@ -195,6 +215,18 @@ group by u.user_first_name, u.user_last_name, p.project_name, c.course_name, ent
                 connection.Open();
                 var entries = connection.Query<Entry>(sql, new { userId });
                 return entries.AsList();
+            }
+        }
+
+
+        public void DeleteAllMembers (int[] projectIds)
+        {
+            string sql = @"DELETE FROM [SEI_Galileo].[dbo].[ROLE] WHERE team_id IN @projectIds";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Query(sql, new { projectIds });
             }
         }
 
