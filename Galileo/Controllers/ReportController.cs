@@ -26,6 +26,8 @@ namespace Galileo.Controllers
 
             if (user.user_is_teacher)
                 return RedirectToAction("Courses");
+            else if (user.user_is_project_manager || user.user_is_team_leader)
+                return RedirectToAction("Leader", new { leaderId = user.user_id });
             else
                 return RedirectToAction("Individual", new { userId = user.user_id });
         }
@@ -99,6 +101,20 @@ namespace Galileo.Controllers
             };
 
             return View(teamMembers);
+        }
+
+        /// <summary>
+        /// Gives a detailed view of the individual
+        /// Includes a summary of their hours as well as each time entry
+        /// </summary>
+        /// <param name="userId">The ID of the user to get the information for</param>
+        /// <returns></returns>
+        public ActionResult Leader(string leaderId)
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            List<Project> projects = db.GetUserEntries(leaderId);
+            List<Module> viewModel = Mapper.Map<List<Project>, List<Module>>(projects);
+            return View(viewModel);
         }
 
         /// <summary>
