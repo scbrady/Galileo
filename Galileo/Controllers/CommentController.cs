@@ -69,8 +69,9 @@ namespace Galileo.Controllers
 
         public JsonResult Users()
         {
+            User currentUser = GlobalVariables.CurrentUser;
             DatabaseRepository db = new DatabaseRepository();
-            List<User> users = db.GetAllUsers();
+            List<User> users = db.GetMinions(currentUser.user_id, currentUser.user_is_teacher);
             return Json(users, JsonRequestBehavior.AllowGet);
         }
     }
