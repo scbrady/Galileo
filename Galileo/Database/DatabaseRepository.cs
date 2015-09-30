@@ -19,7 +19,20 @@ namespace Galileo.Database
 
         public User GetUser(string userId)
         {
-            string sql = "SELECT * FROM [USER] WHERE user_id = @userId";
+            string sql = @"
+SELECT u.*,
+    CASE WHEN r.position = 2
+        THEN 1
+        ELSE 0
+    END AS user_is_team_leader, 
+	CASE WHEN r.position = 3
+        THEN 1
+        ELSE 0
+    END AS user_is_project_manager
+FROM[USER] u
+JOIN[SEI_Galileo].[dbo].[ROLE]
+        r ON r.student_id = u.user_id
+WHERE user_id = @userId";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -67,6 +80,18 @@ group by p.project_begin_date, p.project_course_id, p.project_created_by, p.proj
             {
                 connection.Open();
                 var projects = connection.Query<Project>(sql, new { course_id });
+                return projects.AsList();
+            }
+        }
+
+        public List<Project> GetLeaderProjects(int leaderId)
+        {
+            string sql = @"";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var projects = connection.Query<Project>(sql, new { leaderId });
                 return projects.AsList();
             }
         }
