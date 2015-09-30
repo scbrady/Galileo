@@ -1,8 +1,8 @@
 ﻿@model List<Galileo.Models.Entry>
     @{
-        ViewBag.Title = "Home Page";
+        ViewBag.Title = @Model.First().user_first_name + "'s Page";
     }
-    <h1>@GlobalVariables.CurrentUser.user_first_name  @GlobalVariables.CurrentUser.user_last_name</h1>
+    <h1>@Model.First().user_first_name  @Model.First().user_last_name</h1>
     <!--
     <h3><small>Filter results</small></h3>
                    <div class="btn-group">
