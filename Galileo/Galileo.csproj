@@ -135,10 +135,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Database\DatabaseRepository.cs" />
+    <Compile Include="Filters\AuthorizeTeacher.cs" />
+    <Compile Include="Filters\AuthorizeTeamLeader.cs" />
+    <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -154,6 +158,7 @@
     <Compile Include="ViewModels\CourseProjectsAndUsers.cs" />
     <Compile Include="ViewModels\Module.cs" />
     <Compile Include="ViewModels\TeamMembers.cs" />
+    <None Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

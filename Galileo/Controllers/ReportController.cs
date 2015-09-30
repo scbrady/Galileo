@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Galileo.Database;
+using Galileo.Filters;
 using Galileo.Models;
 using Galileo.ViewModels;
 using System;
@@ -33,6 +34,7 @@ namespace Galileo.Controllers
         /// Lists all of the courses that a teacher has access to
         /// Gives a summary of the hours spent in each course
         /// </summary>
+        [AuthorizeTeacher]
         public ActionResult Courses()
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -47,6 +49,7 @@ namespace Galileo.Controllers
         /// Gives a summary of the hours spent in each project/team
         /// </summary>
         /// <param name="courseId">The ID of the course that the projects are in</param>
+        [AuthorizeTeacher]
         public ActionResult Projects(int courseId)
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -68,6 +71,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="projectId">The ID of the project to get the individuals for</param>
         /// <returns></returns>
+        [AuthorizeTeacher]
         public ActionResult Project(int projectId)
         {
             DatabaseRepository db = new DatabaseRepository();

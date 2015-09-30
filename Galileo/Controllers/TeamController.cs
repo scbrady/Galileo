@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Linq;
 using AutoMapper;
+using Galileo.Filters;
 
 namespace Galileo.Controllers
 {
@@ -14,6 +15,7 @@ namespace Galileo.Controllers
         /// If the user has Teacher privileges, this will list all courses the user teaches
         /// </summary>
         /// <returns>List of Courses</returns>
+        [AuthorizeTeacher]
         public ActionResult Index()
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -28,6 +30,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="courseId">ID variable of course in question</param>
         /// <returns>List of Teams</returns>
+        [AuthorizeTeacher]
         public ActionResult Teams(int courseId)
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -49,6 +52,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="course"></param>
         /// <returns>Sends user to Index page</returns>
+        [AuthorizeTeacher]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TeamsProjectsAndUsers course)

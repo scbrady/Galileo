@@ -100,7 +100,7 @@ join [SEI_TimeMachine2].[dbo].[entry] e on user_id = entry_user_id
 join [SEI_TimeMachine2].[dbo].[project] p on project_id = entry_project_id
 where project_id = @projectId
 group by user_id, user_first_name, user_last_name, p.project_begin_date, p.project_end_date
-order by user_total_hours";
+order by user_total_time";
 
             using (var connection = new SqlConnection(_connectionString))
             {
