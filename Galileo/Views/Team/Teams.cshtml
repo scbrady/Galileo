@@ -3,50 +3,51 @@
 @{
     ViewBag.Title = "Project Page";
 }
-<div id="team-users">
-    <h3>Users</h3>
-    <ul class="connected sortable list">
-        @foreach (var user in Model.users)
-        {
-            <li id="@user.user_id">@user.user_first_name @user.user_last_name</li>
-        }
-    </ul>
-</div>
-
-<div id="team-projects">
-    <h3>Projects</h3>
-    @using (Html.BeginForm("Create", "Team", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        <ul id="project-manager-list" data-project-index="projectManager" class="connected sortable list">Project Manager
-            @if (Model.members.Where(m => m.user_is_project_manager == true).ToList().Any())
+<div id="teams">
+    <div id="team-users">
+        <h3>Users</h3>
+        <ul class="connected sortable list">
+            @foreach (var user in Model.users)
             {
-                var project_manager = Model.members.Where(m => m.user_is_project_manager == true).ToList().First();
-                <li id="@project_manager.user_id">@project_manager.user_first_name @project_manager.user_last_name</li>
+                <li id="@user.user_id">@user.user_first_name @user.user_last_name</li>
             }
         </ul>
-        <input id="hidden_projectManager" type="hidden" name="projectManager" value="" />
-        for (int index = 0; index < Model.projects.Count; index++)
-        {
-            <ul data-project-index="@index" class="connected sortable list">@Model.projects[index].project_name
-                @if (Model.members.Where(m => m.user_is_team_leader == true && m.project_id == @Model.projects[index].project_id).ToList().Any())
-                {
-                    var team_leader = Model.members.Where(m => m.user_is_team_leader == true && m.project_id == @Model.projects[index].project_id).ToList().First();
-                    <li id="@team_leader.user_id">@team_leader.user_first_name @team_leader.user_last_name</li>
+    </div>
 
-                    foreach (var team_member in Model.members.Where(m => m.user_is_team_leader == false && m.user_is_project_manager == false && m.project_id == @Model.projects[index].project_id).ToList())
-                    {
-                        <li id="@team_member.user_id">@team_member.user_first_name @team_member.user_last_name</li>
-                    }
+    <div id="team-projects">
+        <h3>Projects</h3>
+        @using (Html.BeginForm("Create", "Team", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <ul id="project-manager-list" data-project-index="projectManager" class="connected sortable list">Project Manager
+                @if (Model.members.Where(m => m.user_is_project_manager == true).ToList().Any())
+                {
+                    var project_manager = Model.members.Where(m => m.user_is_project_manager == true).ToList().First();
+                    <li id="@project_manager.user_id">@project_manager.user_first_name @project_manager.user_last_name</li>
                 }
             </ul>
-            <input type="hidden" name="teams[@index].projectId" value="@Model.projects[index].project_id" />
-            <input id="hidden_@index" type="hidden" name="teams[@index].userIds" value="" />
-        }
-        <input type="submit" value="Submit">
-    }
-</div>
+            <input id="hidden_projectManager" type="hidden" name="projectManager" value="" />
+            for (int index = 0; index < Model.projects.Count; index++)
+            {
+                <ul data-project-index="@index" class="connected sortable list">@Model.projects[index].project_name
+                    @if (Model.members.Where(m => m.user_is_team_leader == true && m.project_id == @Model.projects[index].project_id).ToList().Any())
+                    {
+                        var team_leader = Model.members.Where(m => m.user_is_team_leader == true && m.project_id == @Model.projects[index].project_id).ToList().First();
+                        <li id="@team_leader.user_id">@team_leader.user_first_name @team_leader.user_last_name</li>
 
+                        foreach (var team_member in Model.members.Where(m => m.user_is_team_leader == false && m.user_is_project_manager == false && m.project_id == @Model.projects[index].project_id).ToList())
+                        {
+                            <li id="@team_member.user_id">@team_member.user_first_name @team_member.user_last_name</li>
+                        }
+                    }
+                </ul>
+                <input type="hidden" name="teams[@index].projectId" value="@Model.projects[index].project_id" />
+                <input id="hidden_@index" type="hidden" name="teams[@index].userIds" value="" />
+            }
+            <section class="press"><input type="submit" value="Submit"></section>
+        }
+    </div>
+</div>
 
 
 @section scripts {

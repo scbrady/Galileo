@@ -158,6 +158,15 @@
     <Compile Include="ViewModels\CourseProjectsAndUsers.cs" />
     <Compile Include="ViewModels\Module.cs" />
     <Compile Include="ViewModels\TeamMembers.cs" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="packages.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -170,15 +179,11 @@
     <Content Include="Content\Images\stat.png" />
     <Content Include="Content\Images\webprint.png" />
     <Content Include="Content\selectize.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dragdrop.js" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.sortable.js" />
     <Content Include="Scripts\jquery.sortable.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -218,12 +223,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

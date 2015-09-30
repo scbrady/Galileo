@@ -34,16 +34,16 @@
                    </div>
                    <button type="button" class="btn-primary">Filter</button>-->
     <hr />
-    <a class="toggle-vis" data-column="0">Name</a> -
-    <a class="toggle-vis" data-column="1">Date</a> -
-    <a class="toggle-vis" data-column="2">Work Accomplished</a> -
-    <a class="toggle-vis" data-column="3">Comment</a> -
-    <a class="toggle-vis" data-column="4">Project Name</a> -
-    <a class="toggle-vis" data-column="5">Start Time</a> -
-    <a class="toggle-vis" data-column="6">End Time</a> -
-    <a class="toggle-vis" data-column="7">Total Time</a> -
-    <a class="toggle-vis" data-column="8">Course Name</a>
-    <table id="entries_table" class="display" cellspacing="0" style="width:75%">
+    <a href="#" class="toggle-vis text" data-column="0">Name</a> -
+    <a href="#" class="toggle-vis text" data-column="1">Date</a> -
+    <a href="#" class="toggle-vis text" data-column="2">Work Accomplished</a> -
+    <a href="#" class="toggle-vis text" data-column="3">Comment</a> -
+    <a href="#" class="toggle-vis text" data-column="4">Project Name</a> -
+    <a href="#" class="toggle-vis text" data-column="5">Start Time</a> -
+    <a href="#" class="toggle-vis text" data-column="6">End Time</a> -
+    <a href="#" class="toggle-vis text" data-column="7">Total Time</a> -
+    <a href="#" class="toggle-vis text" data-column="8">Course Name</a>
+    <table id="entries_table" class="display" cellspacing="0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -80,12 +80,12 @@
         <script>
         $(document).ready(function () {
            var table = $('#entries_table').DataTable({
-                //"scrollY": "200px",
                 "paging": true
            });
         /*$('#entries_table').DataTable();*/
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
+                $(e.target).toggleClass("toggle-hidden");
 
                 // Get the column API object
                 var column = table.column($(this).attr('data-column'));
