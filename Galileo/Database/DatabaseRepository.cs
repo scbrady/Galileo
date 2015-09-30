@@ -30,7 +30,7 @@ SELECT u.*,
         ELSE 0
     END AS user_is_project_manager
 FROM[USER] u
-JOIN[SEI_Galileo].[dbo].[ROLE]
+LEFT JOIN[SEI_Galileo].[dbo].[ROLE]
         r ON r.student_id = u.user_id
 WHERE user_id = @userId";
 
@@ -83,9 +83,15 @@ WHERE user_id = @userId";
             }
         }
 
-        public List<Project> GetLeaderProjects(int leaderId)
+        public List<Project> GetLeaderProjects(string leaderId)
         {
-            string sql = @"";
+            string sql = @"SELECT p.*, sum(e.entry_total_time) as project_total_time
+FROM [SEI_TimeMachine2].[dbo].[PROJECT] p JOIN
+[SEI_TimeMachine2].[dbo].[ENTRY] e ON e.entry_project_id = p.project_id JOIN
+[SEI_Galileo].[dbo].[ROLE] r ON r.team_id = p.project_id JOIN
+[SEI_TimeMachine2].[dbo].[USER] u ON r.student_id = u.user_id 
+where user_id = '@leaderId'
+group by p.project_begin_date, p.project_course_id, p.project_created_by, p.project_date_created, p.project_description, p.project_end_date, p.project_id, p.project_id, p.project_is_enabled, p.project_name;";
 
             using (var connection = new SqlConnection(_connectionString))
             {
