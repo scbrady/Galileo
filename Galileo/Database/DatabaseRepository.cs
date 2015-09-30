@@ -377,5 +377,29 @@ order by created_at desc";
                 return comments.AsList();
             }
         }
+
+        public List<User> GetMinions(string userId, bool isTeacher)
+        {
+            string sql;
+            if (isTeacher)
+            {
+                sql = @"select distinct user_id, user_first_name, user_last_name, position from [user] u
+                           left join[SEI_Galileo].[DBO].[ROLE]
+                           r on r.student_id = u.user_id
+                           where r.team_id in (select team_id from[SEI_Galileo].[DBO].[ROLE]
+                           where student_id = '117288')
+                           and(select distinct position from [SEI_Galileo].[DBO].[ROLE] where student_id = '117288') > r.position
+                           or user_id = '117288'";
+            }
+            else
+                sql = @"select user_id, user_first_name, user_last_name, position from [USER]";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var users = connection.Query<User>(sql);
+                return users.AsList();
+            }
+        }
     }
 }
