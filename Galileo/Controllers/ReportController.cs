@@ -112,7 +112,7 @@ namespace Galileo.Controllers
         public ActionResult Leader(string leaderId)
         {
             DatabaseRepository db = new DatabaseRepository();
-            List<Project> projects = db.GetUserEntries(leaderId);
+            List<Project> projects = db.GetLeaderProjects(leaderId);
             List<Module> viewModel = Mapper.Map<List<Project>, List<Module>>(projects);
             return View(viewModel);
         }
