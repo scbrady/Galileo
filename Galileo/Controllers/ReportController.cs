@@ -126,8 +126,14 @@ namespace Galileo.Controllers
         public ActionResult Individual(string userId)
         {
             DatabaseRepository db = new DatabaseRepository();
+            User user = db.GetUser(userId);
             List<Entry> entries = db.GetUserEntries(userId);
-            return View(entries);
+            UserEntries viewModel = new UserEntries()
+            {
+                user = user,
+                entries = entries
+            };
+            return View(viewModel);
         }
 
         /// <summary>

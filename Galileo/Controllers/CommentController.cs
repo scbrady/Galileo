@@ -23,7 +23,8 @@ namespace Galileo.Controllers
                 comment_text = c.Select(comment => comment.comment_text).First(),
                 user_is_commenter = c.Select(comment => comment.user_is_commenter).First(),
                 created_at = c.Select(comment => comment.created_at).First(),
-                hidden = c.Select(comment => comment.hidden).First()
+                hidden = c.Select(comment => comment.hidden).First(),
+                id = c.Select(comment => comment.id).First()
             }).ToList();
 
             var commentViewModel = new Comments
@@ -59,8 +60,7 @@ namespace Galileo.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public ActionResult Delete(int commentId)
         {
             // This will delete the comment from the DB and redirect back to the comment page
