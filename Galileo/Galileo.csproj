@@ -158,6 +158,7 @@
     <Compile Include="ViewModels\CourseProjectsAndUsers.cs" />
     <Compile Include="ViewModels\Module.cs" />
     <Compile Include="ViewModels\TeamMembers.cs" />
+    <Compile Include="ViewModels\UserEntries.cs" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
