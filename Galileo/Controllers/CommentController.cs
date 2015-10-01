@@ -44,20 +44,12 @@ namespace Galileo.Controllers
             // This will add the comment to the DB and redirect back to the comment page
             DatabaseRepository db = new DatabaseRepository();
 
-            if(!string.IsNullOrEmpty(newComment.comment))
+            if(!string.IsNullOrEmpty(newComment.comment) && !string.IsNullOrEmpty(newComment.recipients))
             {
                 int commentId = db.CreateComment(newComment.commenter_id, newComment.comment, newComment.hidden);
                 db.LinkComment(commentId, newComment.recipients.Split(','));
             }
 
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit()
-        {
-            // This will edit the comment in the DB and redirect back to the comment page
             return RedirectToAction("Index");
         }
 

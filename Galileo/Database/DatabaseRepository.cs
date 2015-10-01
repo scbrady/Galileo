@@ -90,7 +90,7 @@ FROM [SEI_TimeMachine2].[dbo].[PROJECT] p JOIN
 [SEI_TimeMachine2].[dbo].[ENTRY] e ON e.entry_project_id = p.project_id JOIN
 [SEI_Galileo].[dbo].[ROLE] r ON r.team_id = p.project_id JOIN
 [SEI_TimeMachine2].[dbo].[USER] u ON r.student_id = u.user_id 
-where user_id = @leaderId
+where user_id = @leaderId and r.position > 1
 group by p.project_begin_date, p.project_course_id, p.project_created_by, p.project_date_created, p.project_description, p.project_end_date, p.project_id, p.project_id, p.project_is_enabled, p.project_name";
 
             using (var connection = new SqlConnection(_connectionString))

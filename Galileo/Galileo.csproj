@@ -141,6 +141,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Database\DatabaseRepository.cs" />
     <Compile Include="Filters\AuthorizeCommenter.cs" />
+    <Compile Include="Filters\AuthorizeIndividual.cs" />
     <Compile Include="Filters\AuthorizeTeacher.cs" />
     <Compile Include="Filters\AuthorizeTeamLeader.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />

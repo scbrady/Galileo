@@ -88,6 +88,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="teamId">The ID of the team to get the members for</param>
         /// <returns></returns>
+        [AuthorizeTeamLeader]
         public ActionResult Team(int teamId)
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -109,6 +110,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="userId">The ID of the user to get the information for</param>
         /// <returns></returns>
+        
         public ActionResult Leader(string leaderId)
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -123,6 +125,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="userId">The ID of the user to get the information for</param>
         /// <returns></returns>
+        [AuthorizeIndividual]
         public ActionResult Individual(string userId)
         {
             DatabaseRepository db = new DatabaseRepository();

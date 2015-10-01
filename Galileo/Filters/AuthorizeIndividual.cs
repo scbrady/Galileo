@@ -1,24 +1,23 @@
 ﻿using Galileo.Database;
 using Galileo.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Galileo.Filters
 {
-    public class AuthorizeTeamLeader : ActionFilterAttribute
+    public class AuthorizeIndividual : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             DatabaseRepository db = new DatabaseRepository();
-            int teamId = (int) filterContext.ActionParameters["teamId"];
+            string userId = filterContext.ActionParameters["userId"].ToString();
             User currentUser = GlobalVariables.CurrentUser;
-            List<Project> teams = db.GetLeaderProjects(currentUser.user_id);
+            List<User> users = db.GetMinions(currentUser.user_id, currentUser.user_is_teacher);
 
-            if (!teams.Any(t => t.project_id == teamId))
+            // If the user is not the commenter, redirect
+            if (!users.Any( u => u.user_id == userId))
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
                             new { action = "Index", controller = "Error" }));
         }
