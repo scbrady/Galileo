@@ -10,7 +10,7 @@ namespace Galileo.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             DatabaseRepository db = new DatabaseRepository();
-            int commentId = (int) filterContext.RouteData.Values["commentId"];
+            int commentId = (int) filterContext.ActionParameters["commentId"];
             Comment comment = db.GetComment(commentId);
 
             // If the user is not the commenter, redirect
