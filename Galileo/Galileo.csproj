@@ -140,6 +140,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Database\DatabaseRepository.cs" />
+    <Compile Include="Filters\AuthorizeSelf.cs" />
     <Compile Include="Filters\AuthorizeCommenter.cs" />
     <Compile Include="Filters\AuthorizeIndividual.cs" />
     <Compile Include="Filters\AuthorizeTeacher.cs" />

@@ -21,7 +21,7 @@ namespace Galileo
                     //string loginId = HttpContext.Current.User.Identity.Name;
                     //string userId = loginId.Substring(loginId.LastIndexOf('\\') + 1);
                     //HttpContext.Current.Session["username"] = userId;
-                    HttpContext.Current.Session["username"] = "121667";
+                    HttpContext.Current.Session["username"] = "mgeary";
                 }
 
                 // Fetch the user from the Time Machine database

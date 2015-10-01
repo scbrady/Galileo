@@ -110,7 +110,7 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="userId">The ID of the user to get the information for</param>
         /// <returns></returns>
-        
+        [AuthorizeSelf]
         public ActionResult Leader(string leaderId)
         {
             DatabaseRepository db = new DatabaseRepository();
