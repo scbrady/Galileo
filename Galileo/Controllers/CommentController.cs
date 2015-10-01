@@ -61,9 +61,13 @@ namespace Galileo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete()
+        public ActionResult Delete(int commentId)
         {
             // This will delete the comment from the DB and redirect back to the comment page
+            DatabaseRepository db = new DatabaseRepository();
+
+            db.DeleteComment(commentId);
+
             return RedirectToAction("Index");
         }
 

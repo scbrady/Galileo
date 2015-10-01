@@ -383,6 +383,20 @@ group by p.project_begin_date, p.project_course_id, p.project_created_by, p.proj
             }
         }
 
+        public void DeleteComment(int comment_id)
+        {
+            string sql = @"DELETE FROM [SEI_Galileo].[dbo].[COMMENT] 
+                           WHERE id = @comment_id;
+                           DELETE FROM [SEI_Galileo].[dbo].[RECIPIENTS]
+                           WHERE comment_id = @comment_id;";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Query(sql, new { comment_id });
+            }
+        }
+
         public List<User> GetMinions(string userId, bool isTeacher)
         {
             string sql;
@@ -398,7 +412,6 @@ group by p.project_begin_date, p.project_course_id, p.project_created_by, p.proj
                            and(select distinct position from [SEI_Galileo].[DBO].[ROLE] where student_id = @userId) > r.position
                            or user_id = @userId";
             }
-                
 
             using (var connection = new SqlConnection(_connectionString))
             {
