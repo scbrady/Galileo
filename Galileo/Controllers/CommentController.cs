@@ -4,6 +4,7 @@ using Galileo.Database;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Linq;
+using Galileo.Filters;
 
 namespace Galileo.Controllers
 {
@@ -60,7 +61,7 @@ namespace Galileo.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [AuthorizeCommenter]
         public ActionResult Delete(int commentId)
         {
             // This will delete the comment from the DB and redirect back to the comment page
