@@ -397,6 +397,19 @@ group by p.project_begin_date, p.project_course_id, p.project_created_by, p.proj
             }
         }
 
+        public Comment GetComment (int comment_id)
+        {
+            string sql = @"SELECT * FROM [SEI_Galileo].[dbo].[COMMENT] WHERE id = @comment_id";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var comment = connection.Query<Comment>(sql, new { comment_id });
+                return comment.First();
+            }
+            
+        }
+
         public List<User> GetMinions(string userId, bool isTeacher)
         {
             string sql;
