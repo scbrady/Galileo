@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -83,9 +83,15 @@ namespace Galileo.Database
             }
         }
 
-        public List<Project> GetLeaderProjects(int leaderId)
+        public List<Project> GetLeaderProjects(string leaderId)
         {
-            string sql = @"";
+            string sql = @"SELECT p.*, sum(e.entry_total_time) as project_total_time
+FROM [SEI_TimeMachine2].[dbo].[PROJECT] p JOIN
+[SEI_TimeMachine2].[dbo].[ENTRY] e ON e.entry_project_id = p.project_id JOIN
+[SEI_Galileo].[dbo].[ROLE] r ON r.team_id = p.project_id JOIN
+[SEI_TimeMachine2].[dbo].[USER] u ON r.student_id = u.user_id 
+where user_id = @leaderId
+group by p.project_begin_date, p.project_course_id, p.project_created_by, p.project_date_created, p.project_description, p.project_end_date, p.project_id, p.project_id, p.project_is_enabled, p.project_name";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -136,7 +142,7 @@ namespace Galileo.Database
 
         public List<User> GetUsersInTeam(int teamId)
         {
-            string sql = @"SELECT user_id, r.team_id, user_first_name, user_last_name, ISNULL(SUM(entry_total_time)/60, 0) as user_total_time, p.project_begin_date as user_begin_date, p.project_end_date as user_end_date,
+            string sql = @"SELECT user_id, r.team_id, user_first_name, user_last_name, ISNULL(SUM(entry_total_time), 0) as user_total_time, p.project_begin_date as user_begin_date, p.project_end_date as user_end_date,
 		                      CASE WHEN r.position = 2
 		                         THEN 1
 		                         ELSE 0
@@ -376,6 +382,57 @@ namespace Galileo.Database
                 connection.Open();
                 var comments = connection.Query<Comment>(sql, new { userId });
                 return comments.AsList();
+            }
+        }
+
+        public void DeleteComment(int comment_id)
+        {
+            string sql = @"DELETE FROM [SEI_Galileo].[dbo].[COMMENT] 
+                           WHERE id = @comment_id;
+                           DELETE FROM [SEI_Galileo].[dbo].[RECIPIENTS]
+                           WHERE comment_id = @comment_id;";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Query(sql, new { comment_id });
+            }
+        }
+
+        public Comment GetComment (int comment_id)
+        {
+            string sql = @"SELECT * FROM [SEI_Galileo].[dbo].[COMMENT] WHERE id = @comment_id";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var comment = connection.Query<Comment>(sql, new { comment_id });
+                return comment.First();
+            }
+            
+        }
+
+        public List<User> GetMinions(string userId, bool isTeacher)
+        {
+            string sql;
+            if (isTeacher)
+                sql = @"select user_id, user_first_name, user_last_name from [USER]";
+            else
+            {
+                sql = @"select distinct user_id, user_first_name, user_last_name, position from [user] u
+                           left join[SEI_Galileo].[DBO].[ROLE]
+                           r on r.student_id = u.user_id
+                           where r.team_id in (select team_id from[SEI_Galileo].[DBO].[ROLE]
+                           where student_id = @userId)
+                           and(select distinct position from [SEI_Galileo].[DBO].[ROLE] where student_id = @userId) > r.position
+                           or user_id = @userId";
+            }
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var users = connection.Query<User>(sql, new { userId });
+                return users.AsList();
             }
         }
     }

@@ -276,7 +276,6 @@ em {
     background-color: #e6e6e6;  
     border:2px solid  #9a9a9a;
     border-bottom:    6px solid #9a9a9a;    
-    display: inline-block;
     padding: 10px 18px;
     position: relative;
     vertical-align: top;
@@ -353,15 +352,24 @@ em {
 input#hidden {
     width: auto;
 }
-
+#teams {
+    width:85%;
+    margin:0 auto;
+}
 #team-projects {
     float: left;
+}
+#team-projects ul {
+    padding:10px;
+}
+#team-users {
+    width:50%;
+    float:left;
 }
 .hidden-comment {
        background-color: #B5E2C9;  
     border:2px solid  #9a9a9a;
     border-bottom:    6px solid #9a9a9a;    
-    display: inline-block;
     padding: 10px 18px;
     position: relative;
     vertical-align: top;
@@ -681,4 +689,20 @@ input#hidden {
 .dataTables_wrapper {
     position:static !important;
     padding:50px;
+}
+..dataTables_wrapper {
+    width:75%;
+    min-width:877px;
+    padding-right:0;
+}
+#entries_table_wrapper {
+    width:75%;
+    min-width:877px;
+}
+.toggle-hidden {
+    font-weight:bold;
+}
+.delete-comment {
+    float: right;
+    text-decoration: none;
 }

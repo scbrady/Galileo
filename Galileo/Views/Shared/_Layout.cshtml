@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
-        <title>@ViewBag.Title - My ASP.NET Application</title>
+        <title>@ViewBag.Title</title>
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
         @RenderSection("styles", required: false)
@@ -14,7 +14,7 @@
         <nav class="navbar navbar-default fixed" role="navigation">
             <div id="nav-color"></div>
             <img src="~/Content/Images/circle_logo.png" class="center-block logo-img" />
-            <a class="navbar-brand" href="#"><strong>@GlobalVariables.CurrentUser.user_first_name  @GlobalVariables.CurrentUser.user_last_name</strong></a>
+            <a class="navbar-brand" href="~/Report/Individual?userId=@GlobalVariables.CurrentUser.user_id"><strong>@GlobalVariables.CurrentUser.user_first_name  @GlobalVariables.CurrentUser.user_last_name</strong></a>
 
             <div class="nav nav-tabs nav-stacked nav-items">
                 <ul class="nav navbar-nav">
