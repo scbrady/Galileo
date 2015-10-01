@@ -1,4 +1,6 @@
-﻿using Galileo.Database;
+﻿using AutoMapper;
+using Galileo.Database;
+using Galileo.Filters;
 using Galileo.Models;
 using Galileo.ViewModels;
 using System;
@@ -24,6 +26,8 @@ namespace Galileo.Controllers
 
             if (user.user_is_teacher)
                 return RedirectToAction("Courses");
+            else if (user.user_is_project_manager || user.user_is_team_leader)
+                return RedirectToAction("Leader", new { leaderId = user.user_id });
             else
                 return RedirectToAction("Individual", new { userId = user.user_id });
         }
@@ -32,12 +36,14 @@ namespace Galileo.Controllers
         /// Lists all of the courses that a teacher has access to
         /// Gives a summary of the hours spent in each course
         /// </summary>
+        [AuthorizeTeacher]
         public ActionResult Courses()
         {
             DatabaseRepository db = new DatabaseRepository();
             User user = GlobalVariables.CurrentUser;
             List<Course> courses = db.GetCourses(user.user_id);
-            return View(courses);
+            List<Module> viewModel = Mapper.Map<List<Course>, List<Module>>(courses);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -45,6 +51,7 @@ namespace Galileo.Controllers
         /// Gives a summary of the hours spent in each project/team
         /// </summary>
         /// <param name="courseId">The ID of the course that the projects are in</param>
+        [AuthorizeTeacher]
         public ActionResult Projects(int courseId)
         {
             DatabaseRepository db = new DatabaseRepository();
@@ -53,8 +60,9 @@ namespace Galileo.Controllers
 
             var viewModel = new CourseProjectsAndUsers()
             {
-                projects = projects,
-                users = members
+                projects = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == false).ToList()),
+                teams = Mapper.Map<List<Project>, List<Module>>(projects.Where(p => p.project_is_team == true).ToList()),
+                users = Mapper.Map<List<User>, List<Module>>(members)
             };
             return View(viewModel);
         }
@@ -65,11 +73,13 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="projectId">The ID of the project to get the individuals for</param>
         /// <returns></returns>
+        [AuthorizeTeacher]
         public ActionResult Project(int projectId)
         {
             DatabaseRepository db = new DatabaseRepository();
             List<User> members = db.GetUsersInProject(projectId);
-            return View(members);
+            List<Module> viewModel = Mapper.Map<List<User>, List<Module>>(members);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -78,9 +88,20 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="teamId">The ID of the team to get the members for</param>
         /// <returns></returns>
+        [AuthorizeTeamLeader]
         public ActionResult Team(int teamId)
         {
-            return View();
+            DatabaseRepository db = new DatabaseRepository();
+            List<User> members = db.GetUsersInTeam(teamId);
+
+            TeamMembers teamMembers = new TeamMembers
+            {
+                projectManager = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_project_manager == true).ToList()),
+                teamLeader = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_team_leader == true).ToList()),
+                teamMembers = Mapper.Map<List<User>, List<Module>>(members.Where(u => u.user_is_project_manager == false && u.user_is_team_leader == false).ToList())
+            };
+
+            return View(teamMembers);
         }
 
         /// <summary>
@@ -89,11 +110,45 @@ namespace Galileo.Controllers
         /// </summary>
         /// <param name="userId">The ID of the user to get the information for</param>
         /// <returns></returns>
+        [AuthorizeSelf]
+        public ActionResult Leader(string leaderId)
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            List<Project> projects = db.GetLeaderProjects(leaderId);
+            List<Module> viewModel = Mapper.Map<List<Project>, List<Module>>(projects);
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Gives a detailed view of the individual
+        /// Includes a summary of their hours as well as each time entry
+        /// </summary>
+        /// <param name="userId">The ID of the user to get the information for</param>
+        /// <returns></returns>
+        [AuthorizeIndividual]
         public ActionResult Individual(string userId)
         {
             DatabaseRepository db = new DatabaseRepository();
+            User user = db.GetUser(userId);
             List<Entry> entries = db.GetUserEntries(userId);
-            return View(entries);
+            UserEntries viewModel = new UserEntries()
+            {
+                user = user,
+                entries = entries
+            };
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Lists all of the projects, teams, and users inside a course
+        /// Gives a summary of the hours spent in each project/team
+        /// </summary>
+        /// <param name="courseId">The ID of the course that the projects are in</param>
+        public JsonResult Entries(int courseId)
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            List<Entry> entries = db.GetEntriesForCourse(courseId);
+            return Json(entries, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

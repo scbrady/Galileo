@@ -1,0 +1,17 @@
+﻿@model Galileo.ViewModels.TeamMembers
+
+@{
+    ViewBag.Title = "Team Members";
+}
+
+@if (Model.projectManager != null && (GlobalVariables.CurrentUser.user_is_project_manager || GlobalVariables.CurrentUser.user_is_teacher))
+{
+    <h3>Project Manager</h3>
+    @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.projectManager, new ViewDataDictionary { { "Link", "Individual?userId=" } })
+}
+
+<h3>Team Leader</h3>
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model.teamLeader, new ViewDataDictionary { { "Link", "Individual?userId=" } })
+
+<h3>Team Members</h3>
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model.teamMembers, new ViewDataDictionary { { "Link", "Individual?userId=" } })

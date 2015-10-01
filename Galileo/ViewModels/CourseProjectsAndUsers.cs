@@ -8,8 +8,8 @@ namespace Galileo.ViewModels
 {
     public class CourseProjectsAndUsers
     {
-        public List<Project> projects { get; set; }
-        public List<User> users { get; set; }
-        public IEnumerable<Team> teams { get; set; }
+        public List<Module> projects { get; set; }
+        public List<Module> teams { get; set; }
+        public List<Module> users { get; set; }
     }
 }

@@ -15,7 +15,11 @@ namespace Galileo
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquerysort").Include(
-                        "~/Scripts/jquery.sortable*"));
+                        "~/Scripts/jquery.sortable*",
+                        "~/Scripts/dragdrop.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/selectize").Include(
+                        "~/Scripts/selectize*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -29,6 +33,9 @@ namespace Galileo
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/selectize").Include(
+                      "~/Content/selectize.css"));
         }
     }
 }

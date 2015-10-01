@@ -1,0 +1,7 @@
+﻿@model List<Galileo.ViewModels.Module>
+
+@{
+    ViewBag.Title = "Leader";
+}
+
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model, new ViewDataDictionary { { "Link", "Team?teamId=" } })

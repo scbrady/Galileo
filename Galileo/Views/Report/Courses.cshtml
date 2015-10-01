@@ -1,16 +1,7 @@
-﻿@model List<Galileo.Models.Course>
+﻿@model List<Galileo.ViewModels.Module>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Courses";
 }
 
-@foreach(var course in Model)
-{
-    <ul>
-        <li>@Html.ActionLink("Course ID: " + course.course_id, "Projects", "Report", new { courseId = course.course_id }, null)</li>
-        <li>Name: @course.course_name</li>
-        <li>Date Created: @course.course_date_created</li>
-        <li>Total Hours: @course.course_total_hours</li>
-    </ul>
-    <br />
-}
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model, new ViewDataDictionary { { "Link", "Projects?courseId=" } })

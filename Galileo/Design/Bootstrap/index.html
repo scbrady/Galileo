@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <title>Time Machine 2 Addon</title>
+    
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <link rel="icon" type="images/png" href="favicon.png" />
+   <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+   <![endif]-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+   <nav class="navbar navbar-default fixed" role="navigation">
+      <div id="nav-color"></div>
+      <img src="circle_logo.png" class="center-block logo-img"/>
+      <a class="navbar-brand" href="#"><strong>Firstname Lastname</strong></a>
+
+      <div class="nav nav-tabs nav-stacked nav-items">
+         <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp&nbspTeams</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-file"></span>&nbsp&nbspReporting</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp&nbspComments</a></li>
+         </ul>
+      </div>
+   </nav>
+   
+   <div class="container">
+      <div class="row">
+         <div class="col-md-4">
+            <div class="module">
+               <a><div class="inner_mod">
+                  <h1>Joseph Gengarella</h1>
+                  <h4>Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong></h4>
+               </div></a>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="module">
+               <div class="inner_mod">
+                  <h1>Landon Luko</h1>
+                  <h4>Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong></h4>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="module">
+               <div class="inner_mod">
+                  <h1>Scott Brady</h1>
+                  <h4>Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong></h4>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-4">
+            <div class="module">
+               <div class="inner_mod">
+                  <h1>Landon Luko</h1>
+                  <h4>Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong></h4>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="module">
+               <div class="inner_mod">
+                  <h1>Scott Brady</h1>
+                  <h4>Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong></h4>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="module">
+               <div class="inner_mod">
+                  <h1>Joseph Gengarella</h1>
+                  <h4>Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong> / Total Hours: <strong>99</strong></h4>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="comment chat sent">
+         <h4><strong>To:</strong> Firstname Lastname</h4>
+         <h4 class="comment-from"><strong>From:</strong> Firstname Lastname</h4>
+         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed neque eu ligula dictum interdum id ut nulla. Proin elementum ut dolor eu cursus. Sed laoreet ex bibendum, eleifend odio et, interdum est. Duis porta elit a lacus ultricies, ac convallis tortor tempor. In facilisis tortor sit amet diam maximus porta. Nulla finibus magna ac risus pellentesque vestibulum. Quisque vel imperdiet mauris, vestibulum ultricies quam. Nullam sed elit odio.</p>
+         <em class="pull-right"><strong>sent at:</strong> 12:00am mm-dd-yy</em>
+      </div>
+      <div class="comment chat received">
+         <h4><strong>To:</strong> Firstname Lastname</h4>
+         <h4 class="comment-from"><strong>From:</strong> Firstname Lastname</h4>
+         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed neque eu ligula dictum interdum id ut nulla. Proin elementum ut dolor eu cursus.</p>
+         <em class="pull-right"><strong>sent at:</strong> 12:00am mm-dd-yy</em>
+      </div>
+
+      <section class="press">
+         <button type="button" data-toggle="modal" data-target="#myModal">Button</button>
+      </section>
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Make a Comment</h4>
+         </div>
+         
+         <div class="modal-body">
+            <form action="/seproject/Galileo/Comment/Create" id="comment-form" method="post">
+            <div class="form-group">
+               <input name="__RequestVerificationToken" type="hidden" value="X6BBgV-g5olRq2k0M0lR5_pJwMEcWg8Q9UiJFfzkC1kTJBPfES4AOGb9mnYWodrjo-xxVdnvKWvwPB5kIxhiXTuK07dsuM-OjclkKjCmVUg2O-7lRz-rzMz_9i7Qdgt0DxOSzl-L2nPH6q_o7YK9wHXD5ZjEf6c-rs8yy2VZ9x41" />
+               <input id="commenter_id" name="commenter_id" type="hidden" value="mgeary" />
+               <label for="recipients">To:</label><br />
+               <input id="recipients" name="recipients" class="form-group" type="text" value="" /><label for="comment">Comment:</label><br />
+               
+               <textarea cols="20" id="comment" name="comment" rows="2">
+               </textarea><br />
+               
+               <section class="press">
+                  <button type="submit" value="Submit">Submit</button>
+               </section>
+            </div>
+         </form>
+        </div>
+      </div>      
+    </div>
+   </div>
+      <a data-toggle="modal" data-target="#myModal"><div class="make-comment comment-hover" data-toggle="tooltip" data-placement="left" title="Click to make a comment"><span class="glyphicon glyphicon-comment white-glyph center-block"></span></div></a>
+
+            <script>
+               $(document).ready(function(){ 
+               $('.comment-hover').tooltip({title: "Click to make a comment", delay: {show: 200, hide: 100}}); 
+            });
+            </script>
+
+   </div>
+
+   </div>
+   
+   <br /><br />
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

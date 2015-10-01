@@ -1,44 +1,100 @@
-﻿@model List<Galileo.Models.Entry>
-
-@{
-    ViewBag.Title = "Home Page";
-}
-
-
-<table id="entries_table" class="display" cellspacing="0" width="100%">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Work Accomplished (v2)</th>
-            <th>Work Accomplished</th>
-            <th>Comment</th>
-            <th>Project Name</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var entry in Model)
-        {
+﻿@model Galileo.ViewModels.UserEntries
+    @{
+        ViewBag.Title = @Model.user.user_first_name + "'s Page";
+    }
+    <h1>@Model.user.user_first_name  @Model.user.user_last_name</h1>
+    <!--
+    <h3><small>Filter results</small></h3>
+                   <div class="btn-group">
+                       <button class="btn btn-primary" data-label-placement>Select Class</button>
+                       <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                           <li><input type="checkbox" id="ID" name="NAME" value="VALUE"><label for="ID">Label</label></li>
+                           <li><input type="checkbox" id="ID2" name="NAME2" value="VALUE"><label for="ID2">Label</label></li>
+                           <li><input type="checkbox" id="ID3" name="NAME3" value="VALUE"><label for="ID3">Label</label></li>
+                       </ul>
+                   </div>
+                   <div class="btn-group">
+                       <button class="btn btn-primary" data-label-placement>Select Class</button>
+                       <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                           <li><input type="checkbox" id="ID4" name="NAME" value="VALUE"><label for="ID4">Label</label></li>
+                           <li><input type="checkbox" id="ID5" name="NAME2" value="VALUE"><label for="ID5">Label</label></li>
+                           <li><input type="checkbox" id="ID6" name="NAME3" value="VALUE"><label for="ID6">Label</label></li>
+                       </ul>
+                   </div>
+                   <div class="btn-group">
+                       <button class="btn btn-primary" data-label-placement>Select Class</button>
+                       <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+                       <ul class="dropdown-menu">
+                           <li><input type="checkbox" id="ID7" name="NAME" value="VALUE"><label for="ID7">Label</label></li>
+                           <li><input type="checkbox" id="ID8" name="NAME2" value="VALUE"><label for="ID8">Label</label></li>
+                           <li><input type="checkbox" id="ID9" name="NAME3" value="VALUE"><label for="ID9">Label</label></li>
+                       </ul>
+                   </div>
+                   <button type="button" class="btn-primary">Filter</button>-->
+    <hr />
+    <a href="#" class="toggle-vis text" data-column="0">Name</a> -
+    <a href="#" class="toggle-vis text" data-column="1">Date</a> -
+    <a href="#" class="toggle-vis text" data-column="2">Work Accomplished</a> -
+    <a href="#" class="toggle-vis text" data-column="3">Comment</a> -
+    <a href="#" class="toggle-vis text" data-column="4">Project Name</a> -
+    <a href="#" class="toggle-vis text" data-column="5">Start Time</a> -
+    <a href="#" class="toggle-vis text" data-column="6">End Time</a> -
+    <a href="#" class="toggle-vis text" data-column="7">Total Time</a> -
+    <a href="#" class="toggle-vis text" data-column="8">Course Name</a>
+    <table id="entries_table" class="display" cellspacing="0">
+        <thead>
             <tr>
-                <td>@entry.user_first_name @entry.user_last_name</td>
-                <td>@entry.entry_begin_time</td>
-                <td>@entry.entry_work_accomplished</td>
-                <td>@entry.entry_work_accomplished</td>
-                <td>@entry.entry_comment</td>
-                <td>@entry.project_name</td>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Work Accomplished</th>
+                <th>Comment</th>
+                <th>Project Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Total Time (min)</th>
+                <th>Course Name</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-@section scripts {
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
-
-    <script>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model.entries)
+            {
+                <tr>
+                    <td>@entry.user_first_name @entry.user_last_name</td>
+                    <td>@entry.entry_begin_time</td>
+                    <td>@entry.entry_work_accomplished</td>
+                    <td>@entry.entry_comment</td>
+                    <td>@entry.project_name</td>
+                    <td>@entry.entry_begin_time</td>
+                    <td>@entry.entry_end_time</td>
+                    <td>@entry.entry_total_time</td>
+                    <td>@entry.course_name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @section scripts {
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+        <script>
         $(document).ready(function () {
-            $('#entries_table').DataTable();
+           var table = $('#entries_table').DataTable({
+                "paging": true
+           });
+        /*$('#entries_table').DataTable();*/
+            $('a.toggle-vis').on('click', function (e) {
+                e.preventDefault();
+                $(e.target).toggleClass("toggle-hidden");
+
+                // Get the column API object
+                var column = table.column($(this).attr('data-column'));
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+            });
         });
-    </script>
-}
+
+
+        </script>
+    }

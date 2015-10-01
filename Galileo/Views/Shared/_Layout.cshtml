@@ -1,34 +1,37 @@
-﻿<html>
-<!DOCTYPE html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
+        <title>@ViewBag.Title</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @RenderSection("styles", required: false)
+    </head>
 
-<body>
-    <header>
-        <div id="nav_color"></div>
-        <div class="circle"></div>
-        <div id="student_name"><p>Firstname Lastname</p></div>
-        <nav>
-            <ul>
-                <li><img src="../Content/Images/cog.png" /><span>Dashboard</span></li>
-                <li><img src="../Content/Images/stat.png" />Statistics</li>
-                <li style="border-bottom:1px solid #d2d2d2"><img src="../Content/Images/comment.png" />Comment</li>
-            </ul>
+    <body>
+        <nav class="navbar navbar-default fixed" role="navigation">
+            <div id="nav-color"></div>
+            <img src="~/Content/Images/circle_logo.png" class="center-block logo-img" />
+            <a class="navbar-brand" href="~/Report/Individual?userId=@GlobalVariables.CurrentUser.user_id"><strong>@GlobalVariables.CurrentUser.user_first_name  @GlobalVariables.CurrentUser.user_last_name</strong></a>
+
+            <div class="nav nav-tabs nav-stacked nav-items">
+                <ul class="nav navbar-nav">
+                    @if (GlobalVariables.CurrentUser.user_is_teacher)
+                    {
+                        <li><a href="~/Team"><span class="glyphicon glyphicon-cog"></span>&nbsp&nbspTeams</a></li>
+                    }
+                    <li><a href="~/Report"><span class="glyphicon glyphicon-file"></span>&nbsp&nbspReporting</a></li>
+                    <li><a href="~/Comment"><span class="glyphicon glyphicon-comment"></span>&nbsp&nbspComments</a></li>
+                </ul>
+            </div>
         </nav>
-    </header>
-    <div id="top_bar">
-        <span>&gt; Dashboard</span>
-    </div>
-    <div id="container">
-        @RenderBody()
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        <div class="container">
+            @RenderBody()
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

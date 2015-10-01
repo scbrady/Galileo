@@ -1,0 +1,115 @@
+<html>
+<head></head>
+<body>
+<ul class="connected sortable list"><h3>Team 1</h3></ul>
+<ul class="connected sortable list"><h3>Team 2</h3></ul>
+
+<h3>Users</h3>
+<ul class="connected sortable list">
+        <li id="1">User 1</li>
+        <li id="2">User 2</li>
+        <li id="3">User 3</li>
+        <li id="4">User 4</li>
+        <li id="5">User 5</li>
+</ul>
+
+<script src="jquery.sortable.js"></script>
+<script>
+    $('.sortable').sortable();
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="../dist/html.sortable.js"></script>
+	<script src="../src/html.sortable.src.js"></script>
+	<script>
+		$(function() {
+			$('.js-sortable').sortable({
+				forcePlaceholderSize: true,
+				placeholderClass: 'p1 mb1 bg-navy border border-yellow',
+				dragImage: $('.ghost')[0]
+			});
+			$('.js-grid').sortable({
+				forcePlaceholderSize: true,
+				placeholderClass: 'col col-4 border border-maroon',
+				dragImage: null
+			});
+			$('.js-sortable-disabled').sortable({
+				forcePlaceholderSize: true,
+				items: ':not(.disabled)',
+				placeholderClass: 'border border-orange mb1'
+			});
+			$('.js-sortable-disabled-inner').sortable({
+				forcePlaceholderSize: true,
+				items: ':not(.disabled)',
+				placeholderClass: 'border border-maroon mb1'
+			});
+			$('.js-sortable-connected').sortable({
+				forcePlaceholderSize: true,
+				connectWith: '.js-connected',
+				handle: '.js-handle',
+				items: 'li',
+				placeholderClass: 'border border-white bg-orange mb1'
+			});
+			$('.js-sortable-inner-connected').sortable({
+				forcePlaceholderSize: true,
+				connectWith: 'js-inner-connected',
+				handle: '.js-inner-handle',
+				items: 'li',
+				placeholderClass: 'border border-white bg-orange mb1'
+			})
+			$('.js-sortable-connected').on('sortupdate', function(e, obj){
+				console.log('Parent old: ');
+				console.log(obj.startparent);
+				console.log('Parent new: ');
+				console.log(obj.endparent);
+				console.log('Index: '+obj.oldindex+' -> '+obj.index);
+				console.log('elementIndex: '+obj.oldElementIndex+' -> '+obj.elementIndex);
+			});
+
+			$('.js-sortable-buttons').sortable({
+				forcePlaceholderSize: true,
+				items: 'li',
+				placeholderClass: 'border border-white mb1'
+			});
+			// buttons to add items and reload the list
+			// separatly to showcase issue without reload
+			$('.js-add-item-button').on('click', function(){
+				$(this).parents().siblings('ul').append('<li class="p1 mb1 blue bg-white">new item</li>');
+			});
+			$('.js-reload').on('click', function(){
+				console.log('Options before re-init:');
+				console.log($(this).parents().siblings('ul').data('opts'));
+				$(this).parents().siblings('ul').sortable();
+				console.log('Options after re-init:');
+				console.log($(this).parents().siblings('ul').data('opts'));
+			});
+			// JS DISABLEFD
+			$('.js-disable').on('click', function(){
+				var $list = $('[data-disabled]');
+				var text = $(this).data('text');
+				$(this).data('text', $(this).text()).text(text);
+				if( $list.data('disabled') === false )
+				{
+					$list.sortable('disable');
+					$list.data('disabled', true);
+					$list.find('li').addClass('muted');
+				} else {
+					$list.sortable('enable');
+					$list.data('disabled', false);
+					$list.find('li').removeClass('muted');
+				}
+			});
+			// Destroy & Init
+			$('.js-destroy').on('click', function(){
+				$(this).parents().siblings('ul').sortable('destroy');
+			});
+			$('.js-init').on('click', function(){
+				$(this).parents().siblings('ul').sortable({
+					forcePlaceholderSize: true,
+					items: 'li',
+					placeholderClass: 'border border-white mb1'
+				});
+			});
+		});
+	</script>
+</body>
+</html>

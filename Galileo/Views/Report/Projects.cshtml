@@ -1,29 +1,23 @@
 ﻿@model Galileo.ViewModels.CourseProjectsAndUsers
 
 @{
-    ViewBag.Title = "Project Page";
+    ViewBag.Title = "Projects";
 }
 
-<h3>Projects</h3>
-@foreach(var project in Model.projects)
+@if (Model.projects.Any())
 {
-    <ul>
-        <li>@Html.ActionLink("Course ID: " + project.project_id, "Project", "Report", new { projectId = project.project_id }, null)</li>
-        <li>Name: @project.project_name</li>
-        <li>Date Created: @project.project_date_created</li>
-        <li>Total Hours: @project.project_total_hours</li>
-    </ul>
-    <br />
+   <h3>Projects</h3>
+   @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.projects, new ViewDataDictionary { { "Link", "Project?projectId=" } })
 }
 
-<h3>Users</h3>
-@foreach (var user in Model.users)
+@if (Model.teams.Any())
 {
-    <ul>
-        <li>@Html.ActionLink("User ID: " + user.user_id, "Individual", "Report", new { userId = user.user_id }, null)</li>
-        <li>ID: @user.user_id</li>
-        <li>Name: @user.user_first_name @user.user_last_name</li>
-        <li>Total Hours: @user.user_total_hours</li>
-    </ul>
-    <br />
+   <h3>Teams</h3>
+   @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.teams, new ViewDataDictionary { { "Link", "Team?teamId=" } })
+}
+
+@if (Model.users.Any())
+{
+   <h3>Users</h3>
+   @Html.Partial("~/Views/Shared/_Modules.cshtml", Model.users, new ViewDataDictionary { { "Link", "Individual?userId=" } })
 }

@@ -1,0 +1,113 @@
+﻿@model Galileo.ViewModels.Comments
+
+@section styles {
+    @Styles.Render("~/Content/selectize")
+}
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+@foreach (var comment in Model.comments)
+{
+    <div class="comment chat @(comment.user_is_commenter ? "sent" : "received") @(comment.hidden ? "hidden-comment" : "")">
+        @if (comment.user_is_commenter)
+        {
+            <a href="@Url.Content("~")Comment/Delete?commentId=@comment.id" class="glyphicon glyphicon-trash delete-comment"></a>
+        }
+        <h4><strong>To:</strong> @comment.recipients</h4>
+        <h4 class="comment-from"><strong>From:</strong> @comment.commenter</h4>
+        <p>@comment.comment_text</p>
+        <em class="pull-right"><strong>sent at:</strong> @comment.created_at</em>
+    </div>
+    
+}
+
+ <!-- Modal -->
+<div class="modal fade" id="commentModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Make a Comment</h4>
+            </div>
+
+            <div class="modal-body">
+                @using (Html.BeginForm("Create", "Comment", FormMethod.Post, new { id = "comment-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(m => m.commenter_id)
+
+                    @Html.LabelFor(m => m.recipients)<br />
+                    @Html.TextBoxFor(m => m.recipients, new { id = "recipients" });
+
+                    @Html.LabelFor(m => m.comment)<br />
+                    @Html.TextAreaFor(m => m.comment)<br />
+
+                    @Html.CheckBoxFor(m => m.hidden)
+                    <label for="hidden">Hidden</label><br />
+
+                    <section class="press">
+                        <input type = "submit" value="Submit">
+                    </section>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<a data-toggle="modal" data-target="#commentModal">
+    <div class="make-comment comment-hover" data-toggle="tooltip" data-placement="left" title="Click to make a comment">
+        <span class="glyphicon glyphicon-comment white-glyph center-block"></span>
+    </div>
+</a>
+
+@section scripts {
+    @Scripts.Render("~/bundles/selectize")
+
+    <script>
+        $(function () {
+            $('.comment-hover').tooltip({ title: "Click to make a comment", delay: { show: 200, hide: 100 } });
+
+            $('#recipients').selectize({
+                delimeter: ',',
+                persist: false,
+                maxOptions: 5,
+                closeAfterSelect: true,
+                valueField: 'user_id',
+                labelField: 'user_first_name',
+                searchField: ['user_first_name', 'user_first_name', 'user_id'],
+                preload: true,
+                render: {
+                    item: function (item, escape) {
+                        return '<div>' +
+                            (item.user_first_name ? '<span class="selectize-user-name">' + escape(item.user_first_name) + ' ' + escape(item.user_last_name) + '</span>' : '') +
+                            (item.user_id ? '<span class="selectize-user-id">&lt;' + escape(item.user_id) + '&gt;</span>' : '') +
+                        '</div>';
+                    },
+                    option: function (item, escape) {
+                        var label = item.user_first_name + ' ' + item.user_last_name;
+                        var caption = item.user_id;
+                        return '<div>' +
+                            '<span class="selectize-label">' + escape(label) + '</span>' +
+                            '<span class="selectize-caption">' + escape(caption) + '</span>' +
+                        '</div>';
+                    }
+                },
+                load: function (query, callback) {
+                    if (!query.length) return callback();
+
+                    $.ajax({
+                        url: '@Url.Content("~")Comment/Users',
+                        dataType: 'json',
+                        success: function (data) {
+                            callback(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

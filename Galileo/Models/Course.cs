@@ -16,6 +16,6 @@ namespace Galileo.Models
         public bool course_is_enabled { get; set; }
         public double course_ref_grade { get; set; }
         public double course_ref_hours { get; set; }
-        public int course_total_hours { get; set; }
+        public int course_total_time { get; set; }
     }
 }

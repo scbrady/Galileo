@@ -1,16 +1,8 @@
-﻿@model List<Galileo.Models.User>
+﻿@model List<Galileo.ViewModels.Module>
 
 @{
     ViewBag.Title = "Project Page";
 }
 
 <h3>Users</h3>
-@foreach (var user in Model)
-{
-    <ul>
-        <li>ID: @user.user_id</li>
-        <li>Name: @user.user_first_name @user.user_last_name</li>
-        <li>Total Hours: @user.user_total_hours</li>
-    </ul>
-    <br />
-}
+@Html.Partial("~/Views/Shared/_Modules.cshtml", Model, new ViewDataDictionary { { "Link", "Individual?userId=" } })
