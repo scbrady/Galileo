@@ -150,17 +150,5 @@ namespace Galileo.Controllers
             List<Entry> entries = db.GetEntriesForCourse(courseId);
             return Json(entries, JsonRequestBehavior.AllowGet);
         }
-
-        /// <summary>
-        /// Lists all of the projects, teams, and users inside a course
-        /// Gives a summary of the hours spent in each project/team
-        /// </summary>
-        /// <param name="courseId">The ID of the course that the projects are in</param>
-        public ActionResult Entries(int courseId)
-        {
-            DatabaseRepository db = new DatabaseRepository();
-            List<Entry> entries = db.GetEntries(courseId);
-            return View(entries);
-        }
     }
 }

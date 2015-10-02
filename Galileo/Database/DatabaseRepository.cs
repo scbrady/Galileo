@@ -29,7 +29,7 @@ namespace Galileo.Database
                                  ELSE 0
                               END AS user_is_project_manager
                            FROM[USER] u
-                           JOIN[SEI_Galileo].[dbo].[ROLE] r ON r.student_id = u.user_id
+                           LEFT JOIN[SEI_Galileo].[dbo].[ROLE] r ON r.student_id = u.user_id
                            WHERE user_id = @userId";
 
             using (var connection = new SqlConnection(_connectionString))
@@ -177,7 +177,7 @@ namespace Galileo.Database
                            JOIN COURSE  c on c.course_id         = m.member_course_id
                            JOIN PROJECT p on p.project_course_id = c.course_id
                            LEFT JOIN [SEI_Galileo].[dbo].ROLE r  ON r.team_id     = p.project_id
-                           LEFT JOIN [SEI_Galileo].[dbo].ROLE ru OM ru.student_id = u.user_id
+                           LEFT JOIN [SEI_Galileo].[dbo].ROLE ru ON ru.student_id = u.user_id
                            WHERE c.course_id = @courseId AND ru.student_id is NULL AND UPPER(m.member_position) != UPPER('Teacher')";
 
             using (var connection = new SqlConnection(_connectionString))
