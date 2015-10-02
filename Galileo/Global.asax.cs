@@ -28,6 +28,7 @@ namespace Galileo
                 DatabaseRepository db = new DatabaseRepository();
                 return db.GetUser((string)HttpContext.Current.Session["username"]);
             }
+            set { }
         }
     }
     public class MvcApplication : HttpApplication

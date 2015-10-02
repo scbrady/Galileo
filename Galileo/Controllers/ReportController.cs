@@ -32,6 +32,30 @@ namespace Galileo.Controllers
                 return RedirectToAction("Individual", new { userId = user.user_id });
         }
 
+        public ActionResult PM()
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            GlobalVariables.CurrentUser = db.GetUser("121508");
+            HttpContext.Session["username"] = "121508";
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult TM()
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            GlobalVariables.CurrentUser = db.GetUser("121667");
+            HttpContext.Session["username"] = "121667";
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult T()
+        {
+            DatabaseRepository db = new DatabaseRepository();
+            GlobalVariables.CurrentUser = db.GetUser("mgeary");
+            HttpContext.Session["username"] = "mgeary";
+            return RedirectToAction("Index");
+        }
+
         /// <summary>
         /// Lists all of the courses that a teacher has access to
         /// Gives a summary of the hours spent in each course

@@ -18,7 +18,7 @@ namespace Galileo.Filters
             User currentUser = GlobalVariables.CurrentUser;
             List<Project> teams = db.GetLeaderProjects(currentUser.user_id);
 
-            if (!teams.Any(t => t.project_id == teamId))
+            if (!teams.Any(t => t.project_id == teamId) && !currentUser.user_is_teacher)
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
                             new { action = "Index", controller = "Error" }));
         }
