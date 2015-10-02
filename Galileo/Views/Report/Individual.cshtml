@@ -33,7 +33,8 @@
                        </ul>
                    </div>
                    <button type="button" class="btn-primary">Filter</button>-->
-    <hr />
+    <h1 id="totalHours"></h1>
+<hr />
     <h3>Show/hide columns</h3>
     <br />
     <a href="#" class="toggle-vis text" data-column="0">Name</a> -
@@ -59,6 +60,19 @@
                 <th>Course Name</th>
             </tr>
         </thead>
+        @*<tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Work Accomplished</th>
+                <th>Comment</th>
+                <th>Project Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Total Time (min)</th>
+                <th>Course Name</th>
+            </tr>
+        </tfoot>*@
         <tbody>
             @foreach (var entry in Model.entries)
             {
@@ -81,10 +95,32 @@
         <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
         <script>
         $(document).ready(function () {
-           var table = $('#entries_table').DataTable({
+            var table = $('#entries_table').DataTable({
                 "paging": true
-           });
-        /*$('#entries_table').DataTable();*/
+                //initComplete: function () {
+                //    this.api().columns().every( function () {
+                //        var column = this;
+                //        var select = $('<select><option value=""></option></select>')
+                //            .appendTo( $(column.footer()).empty() )
+                //            .on( 'change', function () {
+                //                var val = $.fn.dataTable.util.escapeRegex(
+                //                    $(this).val()
+                //                );
+
+                //                column
+                //                    .search( val ? '^'+val+'$' : '', true, false )
+                //                    .draw();
+                //            } );
+
+                //        column.data().unique().sort().each( function ( d, j ) {
+                //            select.append( '<option value="'+d+'">'+d+'</option>' )
+                //        } );
+                //    } );
+                //}
+            });
+            
+            updateTotalHours();
+
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
                 $(e.target).toggleClass("toggle-hidden");
@@ -95,6 +131,20 @@
                 // Toggle the visibility
                 column.visible(!column.visible());
             });
+
+            table.on('search.dt', function () {
+                updateTotalHours();
+            });
+
+            function updateTotalHours()
+            {
+                var rows = $("#entries_table").dataTable()._('tr', { "filter": "applied" });
+                var totalTime = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    totalTime += parseInt($(rows[i][7]).selector, 10);
+                }
+                $('#totalHours').text((totalTime / 60).toFixed(2) + ' Hours');
+            }
         });
 
 
