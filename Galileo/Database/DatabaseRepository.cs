@@ -171,14 +171,16 @@ namespace Galileo.Database
 
         public List<User> GetUsersWithoutTeams(int courseId)
         {
-            string sql = @"SELECT DISTINCT(u.user_id), u.user_first_name, u.user_last_name, ru.student_id
+            string sql = @"SELECT DISTINCT(u.user_id), u.user_first_name, u.user_last_name
                            FROM [USER]  u
                            JOIN MEMBER  m on m.member_user_id    = u.user_id
                            JOIN COURSE  c on c.course_id         = m.member_course_id
                            JOIN PROJECT p on p.project_course_id = c.course_id
-                           LEFT JOIN [SEI_Galileo].[dbo].ROLE r  ON r.team_id     = p.project_id
-                           LEFT JOIN [SEI_Galileo].[dbo].ROLE ru ON ru.student_id = u.user_id
-                           WHERE c.course_id = @courseId AND ru.student_id is NULL AND UPPER(m.member_position) != UPPER('Teacher')";
+                           LEFT JOIN [SEI_Galileo].[dbo].ROLE r  ON r.team_id     = p.project_id and r.student_id = u.user_id
+                           WHERE c.course_id = @courseId AND u.user_id not in (SELECT distinct(r.student_id) from [PROJECT] p
+																		join [SEI_Galileo].[DBO].[ROLE] r on p.project_id = r.team_id
+																		where p.project_course_id = @courseId)
+						   AND UPPER(m.member_position) != UPPER('Teacher')";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -205,7 +207,7 @@ namespace Galileo.Database
                            JOIN PROJECT p on p.project_course_id = c.course_id
                            LEFT JOIN [SEI_Galileo].[dbo].ROLE r  ON r.team_id     = p.project_id
                            LEFT JOIN [SEI_Galileo].[dbo].ROLE ru ON ru.student_id = u.user_id
-                           WHERE c.course_id = @courseId AND ru.student_id IS NOT NULL AND UPPER(m.member_position) != UPPER('Teacher')
+                           WHERE c.course_id = @courseId AND r.student_id IS NOT NULL AND UPPER(m.member_position) != UPPER('Teacher')
                            GROUP BY u.user_id, u.user_first_name, u.user_last_name, ru.position";
 
             using (var connection = new SqlConnection(_connectionString))
