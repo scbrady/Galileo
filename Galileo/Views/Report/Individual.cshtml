@@ -33,31 +33,29 @@
                        </ul>
                    </div>
                    <button type="button" class="btn-primary">Filter</button>-->
-    <h1 id="totalHours"></h1>
+    <h4 id="totalHours"></h4>
 <hr />
     <h3>Show/hide columns</h3>
     <br />
-    <a href="#" class="toggle-vis text" data-column="0">Name</a> -
     <a href="#" class="toggle-vis text" data-column="1">Date</a> -
-    <a href="#" class="toggle-vis text" data-column="2">Work Accomplished</a> -
-    <a href="#" class="toggle-vis text" data-column="3">Comment</a> -
-    <a href="#" class="toggle-vis text" data-column="4">Project Name</a> -
-    <a href="#" class="toggle-vis text" data-column="5">Start Time</a> -
-    <a href="#" class="toggle-vis text" data-column="6">End Time</a> -
-    <a href="#" class="toggle-vis text" data-column="7">Total Time</a> -
-    <a href="#" class="toggle-vis text" data-column="8">Course Name</a>
+    <a href="#" class="toggle-vis text" data-column="2">Course Name</a>  -
+    <a href="#" class="toggle-vis text" data-column="3">Project Name</a> -
+    <a href="#" class="toggle-vis text" data-column="4">Work Accomplished</a> -
+    <a href="#" class="toggle-vis text" data-column="5">Comment</a> -
+    <a href="#" class="toggle-vis text" data-column="6">Start Time</a> -
+    <a href="#" class="toggle-vis text" data-column="7">End Time</a> -
+    <a href="#" class="toggle-vis text" data-column="8">Total Time</a>
     <table id="entries_table" class="display" cellspacing="0">
         <thead>
             <tr>
-                <th>Name</th>
                 <th>Date</th>
+                <th>Course Name</th>
+                <th>Project Name</th>
                 <th>Work Accomplished</th>
                 <th>Comment</th>
-                <th>Project Name</th>
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Total Time (min)</th>
-                <th>Course Name</th>
             </tr>
         </thead>
         @*<tfoot>
@@ -77,15 +75,14 @@
             @foreach (var entry in Model.entries)
             {
                 <tr>
-                    <td>@entry.user_first_name @entry.user_last_name</td>
                     <td>@entry.entry_begin_time</td>
+                    <td>@entry.course_name</td>
+                    <td>@entry.project_name</td>
                     <td>@entry.entry_work_accomplished</td>
                     <td>@entry.entry_comment</td>
-                    <td>@entry.project_name</td>
                     <td>@entry.entry_begin_time</td>
                     <td>@entry.entry_end_time</td>
                     <td>@entry.entry_total_time</td>
-                    <td>@entry.course_name</td>
                 </tr>
             }
         </tbody>

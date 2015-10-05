@@ -3,5 +3,5 @@
 @{
     ViewBag.Title = "Courses";
 }
-<h3>Click on a course to view all of the projects, teams, and users in it</h3>
+<h3 style="width:100%; text-align:center">Click on a course to view all of the projects, teams, and users in it</h3>
 @Html.Partial("~/Views/Shared/_Modules.cshtml", Model, new ViewDataDictionary { { "Link", "Projects?courseId=" } })

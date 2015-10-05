@@ -86,6 +86,7 @@ html,body {
 .module h1 {
    margin-top:       0;
    font-weight:      bold;
+   font-size:        34px;
    transition:       text-shadow 0.3s ease-in;
 }
 .module h1:hover {
