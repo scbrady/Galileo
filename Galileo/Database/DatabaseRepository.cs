@@ -192,23 +192,21 @@ namespace Galileo.Database
 
         public List<User> GetUsersWithTeams(int courseId)
         {
-            string sql = @"SELECT DISTINCT(u.user_id), u.user_first_name, u.user_last_name, MAX(ru.team_id) as project_id,
-                                   CASE WHEN ru.position = 2
-		                           THEN 1
-		                           ELSE 0
-	                            END AS user_is_team_leader, 
-		                           CASE WHEN ru.position = 3
-		                           THEN 1
-		                           ELSE 0
-	                            END AS user_is_project_manager
-                           FROM [USER]  u
-                           JOIN MEMBER  m ON m.member_user_id    = u.user_id
-                           JOIN COURSE  c ON c.course_id         = m.member_course_id
-                           JOIN PROJECT p on p.project_course_id = c.course_id
-                           LEFT JOIN [SEI_Galileo].[dbo].ROLE r  ON r.team_id     = p.project_id
-                           LEFT JOIN [SEI_Galileo].[dbo].ROLE ru ON ru.student_id = u.user_id
-                           WHERE c.course_id = @courseId AND r.student_id IS NOT NULL AND UPPER(m.member_position) != UPPER('Teacher')
-                           GROUP BY u.user_id, u.user_first_name, u.user_last_name, ru.position";
+            string sql = @"SELECT DISTINCT(u.user_id), u.user_first_name, u.user_last_name, project_id, r.student_id,
+                               CASE WHEN r.position = 2
+                               THEN 1
+                               ELSE 0
+                            END AS user_is_team_leader, 
+                               CASE WHEN r.position = 3
+                               THEN 1
+                               ELSE 0
+                            END AS user_is_project_manager
+                        FROM [USER]  u
+                        JOIN MEMBER  m ON m.member_user_id    = u.user_id
+                        JOIN COURSE  c ON c.course_id         = m.member_course_id
+                        JOIN PROJECT p on p.project_course_id = c.course_id
+                        LEFT JOIN [SEI_Galileo].[dbo].ROLE r  ON r.team_id     = p.project_id AND r.student_id = u.user_id
+                        WHERE c.course_id = @courseId AND r.student_id IS NOT NULL AND UPPER(m.member_position) != UPPER('Teacher')";
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -250,7 +248,7 @@ namespace Galileo.Database
         }
 
 
-        public void DeleteAllMembers (int[] projectIds)
+        public void DeleteAllMembers(int[] projectIds)
         {
             string sql = @"DELETE FROM [SEI_Galileo].[dbo].[ROLE] 
                            WHERE team_id IN @projectIds";
@@ -333,7 +331,7 @@ namespace Galileo.Database
             }
         }
 
-        public int CreateComment (string commenter_id, string comment, bool hidden)
+        public int CreateComment(string commenter_id, string comment, bool hidden)
         {
             DateTime timestamp = DateTime.Now;
             string sql = @"INSERT INTO [SEI_Galileo].[dbo].[COMMENT] (commenter_id, comment_text, hidden, created_at) VALUES (@commenter_id, @comment, @hidden, @timestamp);
@@ -347,13 +345,13 @@ namespace Galileo.Database
             }
         }
 
-        public void LinkComment (int commentId, string[] recipients)
+        public void LinkComment(int commentId, string[] recipients)
         {
             string sql = @"INSERT INTO [SEI_Galileo].[dbo].[RECIPIENTS] (comment_id, recipient_id) VALUES ";
             var values = new List<string>();
 
             foreach (string recipient in recipients)
-                values.Add("(" + commentId + ", " + recipient + ")");
+                values.Add("(" + commentId + ", '" + recipient + "')");
 
             if (values.Any())
             {
@@ -366,7 +364,7 @@ namespace Galileo.Database
             }
         }
 
-        public List<Comment> GetComments (string userId)
+        public List<Comment> GetComments(string userId)
         {
             string sql = @"SELECT commenter.id, commenter.created_at, commenter.comment_text, commenter.hidden, commenter.commenter_id, commenter.commenter_first_name, 
                                   commenter.commenter_last_name, recipient.recipient_id, recipient.recipient_first_name, recipient.recipient_last_name,
@@ -384,7 +382,7 @@ namespace Galileo.Database
                                ON commenter.id = recipient.comment_id 
                            WHERE commenter_id = @userId OR (recipient_id = @userId and hidden = 0)
                            ORDER BY created_at desc";
-            
+
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -407,7 +405,7 @@ namespace Galileo.Database
             }
         }
 
-        public Comment GetComment (int comment_id)
+        public Comment GetComment(int comment_id)
         {
             string sql = @"SELECT * FROM [SEI_Galileo].[dbo].[COMMENT] WHERE id = @comment_id";
 
@@ -417,7 +415,7 @@ namespace Galileo.Database
                 var comment = connection.Query<Comment>(sql, new { comment_id });
                 return comment.First();
             }
-            
+
         }
 
         public List<User> GetMinions(string userId, bool isTeacher)
@@ -445,29 +443,6 @@ namespace Galileo.Database
                 connection.Open();
                 var users = connection.Query<User>(sql, new { userId });
                 return users.AsList();
-            }
-        }
-
-        public List<Entry> GetEntries(int courseId)
-        {
-            string sql = @"SELECT e.*" +
-      ", c.course_name"+
-      ",u.user_id"+
-      ",u.user_first_name" +
-      ",u.user_last_name" +
-      ",p.project_name" +
-"FROM[ENTRY]   e" +
-"JOIN[PROJECT] p ON entry_project_id = project_id" +
-"JOIN[COURSE]  c ON p.project_course_id = @courseId" +
-"JOIN[USER]    u ON e.entry_user_id = u.user_id" +
-"where c.course_id = 25" +
-"order by entry_user_id";
-
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                var entries = connection.Query<Entry>(sql, new { courseId });
-                return entries.AsList();
             }
         }
     }
